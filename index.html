@@ -1,0 +1,2300 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EngQuiz Grade 12 - Ôn Tập Giữa Kỳ I (Unit 2 & Unit 3)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        .reading-scroll {
+            max-height: calc(100vh - 200px);
+        }
+    </style>
+</head>
+<body
+    class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white">
+
+    <!-- Header & Navigation Bar -->
+    <header class="bg-indigo-900 text-white shadow-lg sticky top-0 z-30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('practice')">
+                    <div
+                        class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 to-teal-400 flex items-center justify-center text-white font-black text-xl shadow-md">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <div>
+                        <span class="font-extrabold text-lg tracking-wide block leading-tight">EngQuiz <span
+                                class="text-teal-400">K12</span></span>
+                        <span class="text-[11px] text-indigo-200">Ôn Tập Giữa Kỳ I (Unit 2 & 3)</span>
+                    </div>
+                </div>
+
+                <!-- Main Navigation -->
+                <nav class="hidden md:flex space-x-1 lg:space-x-2">
+                    <button onclick="switchTab('practice')" id="nav-practice"
+                        class="nav-btn px-4 py-2 rounded-xl text-sm font-semibold transition flex items-center space-x-2 bg-indigo-800 text-white shadow-inner">
+                        <i class="fa-solid fa-bullseye text-emerald-400"></i>
+                        <span>🎯 Luyện Tập</span>
+                    </button>
+                    <button onclick="switchTab('exam')" id="nav-exam"
+                        class="nav-btn px-4 py-2 rounded-xl text-sm font-semibold transition flex items-center space-x-2 hover:bg-indigo-800/60 text-indigo-100">
+                        <i class="fa-solid fa-file-pen text-amber-400"></i>
+                        <span>📝 Làm Đề Thi</span>
+                    </button>
+                    <button onclick="switchTab('manage')" id="nav-manage"
+                        class="nav-btn px-4 py-2 rounded-xl text-sm font-semibold transition flex items-center space-x-2 hover:bg-indigo-800/60 text-indigo-100">
+                        <i class="fa-solid fa-database text-teal-300"></i>
+                        <span>⚙️ Ngân Hàng Câu Hỏi</span>
+                    </button>
+                    <button onclick="switchTab('analytics')" id="nav-analytics"
+                        class="nav-btn px-4 py-2 rounded-xl text-sm font-semibold transition flex items-center space-x-2 hover:bg-indigo-800/60 text-indigo-100">
+                        <i class="fa-solid fa-chart-pie text-purple-300"></i>
+                        <span>📊 Thống Kê</span>
+                    </button>
+                </nav>
+
+                <!-- Quick Stats Badge -->
+                <div
+                    class="hidden lg:flex items-center space-x-2 text-xs bg-indigo-950/70 px-3.5 py-1.5 rounded-full border border-indigo-700/60 font-medium">
+                    <i class="fa-solid fa-book-bookmark text-teal-400"></i>
+                    <span id="quick-q-count">0 Câu hỏi</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Nav -->
+        <div class="md:hidden bg-indigo-950 border-t border-indigo-800/60 flex justify-around p-2 text-xs">
+            <button onclick="switchTab('practice')" id="mobile-nav-practice"
+                class="flex flex-col items-center py-1 px-2 text-emerald-400 font-bold">
+                <i class="fa-solid fa-bullseye text-base mb-0.5"></i>
+                <span>Luyện Tập</span>
+            </button>
+            <button onclick="switchTab('exam')" id="mobile-nav-exam"
+                class="flex flex-col items-center py-1 px-2 text-indigo-300">
+                <i class="fa-solid fa-file-pen text-base mb-0.5"></i>
+                <span>Làm Đề</span>
+            </button>
+            <button onclick="switchTab('manage')" id="mobile-nav-manage"
+                class="flex flex-col items-center py-1 px-2 text-indigo-300">
+                <i class="fa-solid fa-database text-base mb-0.5"></i>
+                <span>Ngân Hàng</span>
+            </button>
+            <button onclick="switchTab('analytics')" id="mobile-nav-analytics"
+                class="flex flex-col items-center py-1 px-2 text-indigo-300">
+                <i class="fa-solid fa-chart-pie text-base mb-0.5"></i>
+                <span>Thống Kê</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
+
+        <!-- Toast Notification Container -->
+        <div id="toast-container" class="fixed top-20 right-5 z-50 flex flex-col space-y-2 pointer-events-none"></div>
+
+        <!-- TAB 1: PRACTICE MODE -->
+        <section id="tab-practice" class="tab-content block space-y-6">
+            <!-- Filter & Controls Toolbar -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-5 space-y-4">
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                    <div>
+                        <h1 class="text-xl font-bold text-slate-800 flex items-center gap-2">
+                            <span class="p-2 bg-emerald-100 text-emerald-600 rounded-xl">🎯</span>
+                            Chế Độ Luyện Tập (Instant Feedback)
+                        </h1>
+                        <p class="text-slate-500 text-xs sm:text-sm mt-1">Chọn đáp án nhận ngay phản hồi xanh/đỏ và giải
+                            thích chi tiết cấu trúc ngữ pháp & từ vựng.</p>
+                    </div>
+
+                    <!-- Shuffle Controls -->
+                    <div class="flex flex-wrap items-center gap-3">
+                        <label
+                            class="flex items-center cursor-pointer bg-slate-100 px-3.5 py-2 rounded-xl border border-slate-200 hover:bg-slate-200/60 transition gap-2.5">
+                            <div class="relative flex items-center">
+                                <input type="checkbox" id="practice-shuffle-q" onchange="initPracticeSession()"
+                                    class="sr-only peer" checked>
+                                <div
+                                    class="w-9 h-5 bg-slate-300 rounded-full peer peer-checked:bg-indigo-600 transition-colors">
+                                </div>
+                                <div
+                                    class="absolute left-0.5 top-0.5 bg-white w-4 h-4 rounded-full transition-transform peer-checked:translate-x-4 shadow-sm border border-slate-200">
+                                </div>
+                            </div>
+                            <span class="text-xs font-semibold text-slate-700 select-none">Trộn câu hỏi</span>
+                        </label>
+
+                        <label
+                            class="flex items-center cursor-pointer bg-slate-100 px-3.5 py-2 rounded-xl border border-slate-200 hover:bg-slate-200/60 transition gap-2.5">
+                            <div class="relative flex items-center">
+                                <input type="checkbox" id="practice-shuffle-o" onchange="initPracticeSession()"
+                                    class="sr-only peer" checked>
+                                <div
+                                    class="w-9 h-5 bg-slate-300 rounded-full peer peer-checked:bg-indigo-600 transition-colors">
+                                </div>
+                                <div
+                                    class="absolute left-0.5 top-0.5 bg-white w-4 h-4 rounded-full transition-transform peer-checked:translate-x-4 shadow-sm border border-slate-200">
+                                </div>
+                            </div>
+                            <span class="text-xs font-semibold text-slate-700 select-none">Trộn đáp án (A,B,C,D)</span>
+                        </label>
+                    </div>
+                </div>
+
+                <hr class="border-slate-100">
+
+                <!-- Filters -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">1. Chọn
+                            Unit</label>
+                        <select id="practice-unit-filter" onchange="initPracticeSession()"
+                            class="w-full bg-slate-50 border border-slate-300 text-slate-800 text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 p-2.5 font-semibold">
+                            <option value="ALL">Tất cả (Unit 2 & Unit 3)</option>
+                            <option value="Unit 2">Unit 2: A Multicultural World</option>
+                            <option value="Unit 3">Unit 3: Green Living</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">2. Chọn Mục
+                            / Phân Dạng</label>
+                        <select id="practice-section-filter" onchange="initPracticeSession()"
+                            class="w-full bg-slate-50 border border-slate-300 text-slate-800 text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 p-2.5 font-semibold">
+                            <option value="ALL">Tất cả mục phụ</option>
+                            <option value="Getting Started">I. Getting Started</option>
+                            <option value="Language">II. Language (Grammar & Articles)</option>
+                            <option value="Reading">III. Reading</option>
+                            <option value="Speaking">IV. Speaking (Hội thoại)</option>
+                            <option value="Listening">V. Listening</option>
+                            <option value="Writing">VI. Writing (Sắp xếp đoạn văn/thư)</option>
+                            <option value="Looking Back">VIII. Looking Back</option>
+                            <option value="Passage Completion">Review Passages (Bài Đọc Hiểu)</option>
+                        </select>
+                    </div>
+
+                    <div class="flex items-end">
+                        <button onclick="initPracticeSession()"
+                            class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 px-4 rounded-xl shadow transition flex items-center justify-center space-x-2 text-sm">
+                            <i class="fa-solid fa-rotate-right"></i>
+                            <span>Tải Lại / Trộn Lại Câu Hỏi</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Practice Questions View Container -->
+            <div id="practice-container" class="space-y-6"></div>
+        </section>
+
+        <!-- TAB 2: EXAM MODE -->
+        <section id="tab-exam" class="tab-content hidden space-y-6">
+            <!-- Exam Config Screen -->
+            <div id="exam-setup-card"
+                class="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6 max-w-2xl mx-auto space-y-5">
+                <div class="text-center mb-4">
+                    <div
+                        class="w-16 h-16 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center mx-auto mb-3 text-2xl shadow-inner font-bold">
+                        <i class="fa-solid fa-stopwatch"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-slate-800">Cấu Hình Đề Thi Giữa Kỳ I</h2>
+                    <p class="text-slate-500 text-xs sm:text-sm mt-1">Làm bài trong điều kiện bấm giờ, ma trận chuyển
+                        câu và gắn cờ câu hỏi.</p>
+                </div>
+
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Phạm Vi Bài Thi
+                            (Unit)</label>
+                        <select id="exam-unit-select"
+                            class="w-full bg-slate-50 border border-slate-300 text-slate-800 text-sm rounded-xl p-3 font-semibold">
+                            <option value="ALL">Tất cả Unit (Unit 2 & Unit 3)</option>
+                            <option value="Unit 2">Chỉ Unit 2: A Multicultural World</option>
+                            <option value="Unit 3">Chỉ Unit 3: Green Living</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Phân Dạng Bài Tập</label>
+                        <select id="exam-section-select"
+                            class="w-full bg-slate-50 border border-slate-300 text-slate-800 text-sm rounded-xl p-3 font-semibold">
+                            <option value="ALL">Đề Thi Tổng Hợp (Tất cả dạng bài)</option>
+                            <option value="Getting Started">I. Getting Started</option>
+                            <option value="Language">II. Language</option>
+                            <option value="Reading">III. Reading</option>
+                            <option value="Speaking">IV. Speaking</option>
+                            <option value="Listening">V. Listening</option>
+                            <option value="Writing">VI. Writing</option>
+                            <option value="Looking Back">VIII. Looking Back</option>
+                            <option value="Passage Completion">Review Passages (Bài đọc hiểu)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Thời Gian Làm Bài</label>
+                        <select id="exam-timer-select"
+                            class="w-full bg-slate-50 border border-slate-300 text-slate-800 text-sm rounded-xl p-3 font-semibold">
+                            <option value="15">15 Phút (Kiểm tra 15p)</option>
+                            <option value="45" selected>45 Phút (Kiểm tra 1 Tiết Giữa Kỳ)</option>
+                            <option value="60">60 Phút (Kiểm tra mở rộng)</option>
+                            <option value="0">Không giới hạn thời gian</option>
+                        </select>
+                    </div>
+
+                    <div class="p-4 bg-slate-50 rounded-xl border border-slate-200/80 space-y-3">
+                        <span class="block text-xs font-bold text-slate-500 uppercase tracking-wider">Tùy Chọn Trộn Đề
+                            Thi</span>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs sm:text-sm font-semibold text-slate-700">Trộn thứ tự câu hỏi</span>
+                            <input type="checkbox" id="exam-shuffle-q" checked
+                                class="w-4 h-4 text-indigo-600 rounded border-slate-300">
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs sm:text-sm font-semibold text-slate-700">Trộn các đáp án A, B, C,
+                                D</span>
+                            <input type="checkbox" id="exam-shuffle-o" checked
+                                class="w-4 h-4 text-indigo-600 rounded border-slate-300">
+                        </div>
+                    </div>
+
+                    <button onclick="startExam()"
+                        class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold py-3.5 px-6 rounded-xl shadow-lg transition text-base flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-play"></i>
+                        <span>BẮT ĐẦU LÀM BÀI THI</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Active Exam Screen -->
+            <div id="exam-active-card" class="hidden space-y-6">
+                <!-- Sticky Bar -->
+                <div
+                    class="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-4 sticky top-16 z-20 flex flex-wrap items-center justify-between gap-3">
+                    <div class="flex items-center space-x-3">
+                        <div id="exam-timer-badge"
+                            class="px-3.5 py-1.5 bg-amber-50 text-amber-800 font-mono font-bold text-sm sm:text-base rounded-xl border border-amber-300 flex items-center space-x-2">
+                            <i class="fa-solid fa-clock animate-pulse text-amber-600"></i>
+                            <span id="exam-timer-display">45:00</span>
+                        </div>
+                        <span class="text-xs text-slate-600 font-semibold hidden sm:inline" id="exam-progress-text">Đã
+                            làm 0/0 câu</span>
+                    </div>
+
+                    <div class="flex items-center space-x-3">
+                        <button onclick="confirmSubmitExam()"
+                            class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-bold px-4 py-2 rounded-xl shadow transition flex items-center space-x-1.5">
+                            <i class="fa-solid fa-check-double"></i>
+                            <span>Nộp Bài Thi</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Main Layout Grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <!-- Left: Questions Area -->
+                    <div class="lg:col-span-8 xl:col-span-9 space-y-6" id="exam-questions-container"></div>
+
+                    <!-- Right: Question Matrix Navigation -->
+                    <div class="lg:col-span-4 xl:col-span-3">
+                        <div class="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-4 sticky top-36">
+                            <h3 class="font-bold text-sm text-slate-800 mb-3 flex items-center justify-between">
+                                <span>Ma Trận Câu Hỏi</span>
+                                <span class="text-xs font-normal text-slate-500" id="exam-answered-count">0/0</span>
+                            </h3>
+
+                            <div id="exam-matrix-grid"
+                                class="grid grid-cols-5 sm:grid-cols-6 lg:grid-cols-4 xl:grid-cols-5 gap-2 max-h-[60vh] overflow-y-auto p-1">
+                            </div>
+
+                            <div
+                                class="mt-4 pt-3 border-t border-slate-100 grid grid-cols-2 gap-2 text-[11px] text-slate-600 font-semibold">
+                                <div class="flex items-center space-x-1.5"><span
+                                        class="w-3 h-3 rounded bg-slate-200 border"></span><span>Chưa làm</span></div>
+                                <div class="flex items-center space-x-1.5"><span
+                                        class="w-3 h-3 rounded bg-indigo-600"></span><span>Đã trả lời</span></div>
+                                <div class="flex items-center space-x-1.5"><span
+                                        class="w-3 h-3 rounded bg-amber-400"></span><span>Gắn cờ</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exam Results Screen -->
+            <div id="exam-result-card"
+                class="hidden bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6 sm:p-8 max-w-4xl mx-auto space-y-6">
+                <div class="text-center space-y-2">
+                    <span
+                        class="px-3 py-1 bg-indigo-100 text-indigo-800 rounded-full text-xs font-bold uppercase tracking-wider">Kết
+                        Quả Đề Thi</span>
+                    <h2 class="text-3xl font-extrabold text-slate-800">BẢNG TỔNG KẾT ĐIỂM SỐ</h2>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 py-2">
+                    <div class="bg-indigo-50 border border-indigo-100 rounded-2xl p-4 text-center">
+                        <span class="text-xs font-bold text-indigo-600 block mb-1">Điểm Số (Thang 10)</span>
+                        <span id="res-score" class="text-3xl font-black text-indigo-700">0.0</span>
+                    </div>
+                    <div class="bg-emerald-50 border border-emerald-100 rounded-2xl p-4 text-center">
+                        <span class="text-xs font-bold text-emerald-600 block mb-1">Tỷ Lệ Đúng</span>
+                        <span id="res-accuracy" class="text-3xl font-black text-emerald-700">0%</span>
+                    </div>
+                    <div class="bg-blue-50 border border-blue-100 rounded-2xl p-4 text-center">
+                        <span class="text-xs font-bold text-blue-600 block mb-1">Số Câu Đúng</span>
+                        <span id="res-correct" class="text-3xl font-black text-blue-700">0/0</span>
+                    </div>
+                    <div class="bg-purple-50 border border-purple-100 rounded-2xl p-4 text-center">
+                        <span class="text-xs font-bold text-purple-600 block mb-1">Thời Gian Dùng</span>
+                        <span id="res-time" class="text-3xl font-black text-purple-700">00:00</span>
+                    </div>
+                </div>
+
+                <!-- Review Items -->
+                <div class="space-y-4 border-t border-slate-100 pt-6">
+                    <div class="flex items-center justify-between">
+                        <h3 class="font-bold text-lg text-slate-800">Chi Tiết Xem Lại Bài Làm</h3>
+                        <button onclick="retakeExam()"
+                            class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition">
+                            <i class="fa-solid fa-rotate-right mr-1"></i> Làm Lại Đề Này
+                        </button>
+                    </div>
+                    <div id="exam-review-container" class="space-y-6"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: QUESTION MANAGEMENT -->
+        <section id="tab-manage" class="tab-content hidden space-y-6">
+            <div
+                class="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-xl font-bold text-slate-800 flex items-center gap-2">
+                        <span class="p-2 bg-blue-100 text-blue-600 rounded-xl">⚙️</span>
+                        Quản Lý Ngân Hàng Câu Hỏi Giữa Kỳ I
+                    </h2>
+                    <p class="text-slate-500 text-xs sm:text-sm mt-0.5">Thêm mới, sửa, xóa, xuất/nhập file JSON hoặc
+                        copy-paste nhập hàng loạt.</p>
+                </div>
+
+                <div class="flex flex-wrap gap-2">
+                    <button onclick="openAddQuestionModal()"
+                        class="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition flex items-center space-x-1.5">
+                        <i class="fa-solid fa-plus"></i>
+                        <span>Thêm Câu Hỏi Mới</span>
+                    </button>
+                    <button onclick="openBulkImportModal()"
+                        class="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition flex items-center space-x-1.5">
+                        <i class="fa-solid fa-file-import"></i>
+                        <span>Bulk Import TXT/JSON</span>
+                    </button>
+                    <button onclick="exportQuestionsJSON()"
+                        class="px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition flex items-center space-x-1.5">
+                        <i class="fa-solid fa-download"></i>
+                        <span>Xuất File JSON</span>
+                    </button>
+                    <button onclick="resetToDefaultData()"
+                        class="px-3 py-2 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-xl text-xs font-bold transition flex items-center space-x-1">
+                        <i class="fa-solid fa-arrow-rotate-left"></i>
+                        <span>Reset Gốc K12</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Search and Filter Bar -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-5">
+                <div class="flex flex-col sm:flex-row gap-3 mb-4">
+                    <div class="flex-grow">
+                        <input type="text" id="manage-search" oninput="renderManageTable()"
+                            placeholder="Tìm kiếm theo từ khóa câu hỏi, bài đọc..."
+                            class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-2 text-sm">
+                    </div>
+                    <div class="w-full sm:w-48">
+                        <select id="manage-unit-filter" onchange="renderManageTable()"
+                            class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm font-semibold">
+                            <option value="ALL">Tất cả Unit</option>
+                            <option value="Unit 2">Unit 2</option>
+                            <option value="Unit 3">Unit 3</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto rounded-xl border border-slate-200">
+                    <table class="w-full text-left text-sm text-slate-700">
+                        <thead
+                            class="bg-slate-100 text-slate-600 font-bold uppercase text-xs border-b border-slate-200">
+                            <tr>
+                                <th class="p-3">#</th>
+                                <th class="p-3">Unit</th>
+                                <th class="p-3">Mục</th>
+                                <th class="p-3">Nội Dung Câu Hỏi</th>
+                                <th class="p-3">Đ.Án</th>
+                                <th class="p-3 text-right">Thao Tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="manage-questions-tbody" class="divide-y divide-slate-200"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 4: ANALYTICS -->
+        <section id="tab-analytics" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-5">
+                <h2 class="text-xl font-bold text-slate-800 flex items-center gap-2 mb-1">
+                    <span class="p-2 bg-purple-100 text-purple-600 rounded-xl">📊</span>
+                    Thống Kê Tiến Độ & Lịch Sử Làm Đề Thi
+                </h2>
+                <p class="text-slate-500 text-xs sm:text-sm">Ghi nhận chi tiết kết quả ôn tập của bạn.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-5 text-center">
+                    <div class="text-indigo-600 text-3xl font-black mb-1" id="stat-total-tests">0</div>
+                    <div class="text-slate-500 text-xs font-bold uppercase tracking-wider">Đề Thi Đã Nộp</div>
+                </div>
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-5 text-center">
+                    <div class="text-emerald-600 text-3xl font-black mb-1" id="stat-avg-score">0.0</div>
+                    <div class="text-slate-500 text-xs font-bold uppercase tracking-wider">Điểm Trung Bình</div>
+                </div>
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-5 text-center">
+                    <div class="text-blue-600 text-3xl font-black mb-1" id="stat-total-q">0</div>
+                    <div class="text-slate-500 text-xs font-bold uppercase tracking-wider">Tổng Câu Trắc Nghiệm K12
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-5">
+                <h3 class="font-bold text-slate-800 text-base mb-3">Lịch Sử Làm Bài Thi</h3>
+                <div class="overflow-x-auto rounded-xl border border-slate-200">
+                    <table class="w-full text-left text-sm text-slate-700">
+                        <thead class="bg-slate-50 text-slate-600 font-bold uppercase text-xs border-b border-slate-200">
+                            <tr>
+                                <th class="p-3">Thời Gian</th>
+                                <th class="p-3">Điểm Số</th>
+                                <th class="p-3">Tỷ Lệ Đúng</th>
+                                <th class="p-3">Số Câu Đúng</th>
+                                <th class="p-3">Thời Gian Làm</th>
+                            </tr>
+                        </thead>
+                        <tbody id="analytics-history-tbody" class="divide-y divide-slate-200"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- MODAL: ADD/EDIT QUESTION -->
+    <div id="modal-question"
+        class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm hidden p-4 overflow-y-auto">
+        <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-2xl my-8 p-6 space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                <h3 class="font-bold text-lg text-slate-800" id="modal-q-title">Thêm Câu Hỏi Mới</h3>
+                <button onclick="closeModal('modal-question')" class="text-slate-400 hover:text-slate-600 p-1"><i
+                        class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+
+            <form id="form-question" onsubmit="saveQuestionForm(event)" class="space-y-4">
+                <input type="hidden" id="form-q-id">
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Unit *</label>
+                        <select id="form-q-unit" required
+                            class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-sm font-semibold">
+                            <option value="Unit 2">Unit 2: A Multicultural World</option>
+                            <option value="Unit 3">Unit 3: Green Living</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Mục / Dạng *</label>
+                        <select id="form-q-section" required
+                            class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-sm font-semibold">
+                            <option value="Getting Started">I. Getting Started</option>
+                            <option value="Language">II. Language</option>
+                            <option value="Reading">III. Reading</option>
+                            <option value="Speaking">IV. Speaking</option>
+                            <option value="Listening">V. Listening</option>
+                            <option value="Writing">VI. Writing</option>
+                            <option value="Looking Back">VIII. Looking Back</option>
+                            <option value="Passage Completion">Passage Completion</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Văn Bản Bài Đọc (Passage Text -
+                        Nếu có)</label>
+                    <textarea id="form-q-passage" rows="3" placeholder="Nhập văn bản bài đọc hiểu tại đây..."
+                        class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-sm font-serif"></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Nội Dung Câu Hỏi *</label>
+                    <textarea id="form-q-text" required rows="2"
+                        placeholder="Ví dụ: Question 1. Singapore is a ______ country..."
+                        class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-sm font-semibold"></textarea>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Đáp án A *</label>
+                        <input type="text" id="form-q-opt0" required
+                            class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Đáp án B *</label>
+                        <input type="text" id="form-q-opt1" required
+                            class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Đáp án C *</label>
+                        <input type="text" id="form-q-opt2" required
+                            class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Đáp án D *</label>
+                        <input type="text" id="form-q-opt3" required
+                            class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-sm">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Đáp Án Đúng *</label>
+                        <select id="form-q-correct" required
+                            class="w-full bg-emerald-50 border border-emerald-300 text-emerald-800 font-bold rounded-xl p-2.5 text-sm">
+                            <option value="0">Đáp án A</option>
+                            <option value="1">Đáp án B</option>
+                            <option value="2">Đáp án C</option>
+                            <option value="3">Đáp án D</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Giải thích / Từ
+                            vựng</label>
+                        <input type="text" id="form-q-explanation" placeholder="Giải thích đáp án..."
+                            class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-sm">
+                    </div>
+                </div>
+
+                <div class="flex justify-end space-x-2 border-t border-slate-100 pt-3">
+                    <button type="button" onclick="closeModal('modal-question')"
+                        class="px-4 py-2 bg-slate-100 text-slate-700 font-medium rounded-xl text-sm">Hủy</button>
+                    <button type="submit"
+                        class="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl text-sm">Lưu
+                        Câu Hỏi</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: BULK IMPORT -->
+    <div id="modal-bulk"
+        class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm hidden p-4 overflow-y-auto">
+        <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-3xl my-8 p-6 space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                <h3 class="font-bold text-lg text-slate-800">Nhập Liệu Hàng Loạt (Bulk Import)</h3>
+                <button onclick="closeModal('modal-bulk')" class="text-slate-400 hover:text-slate-600 p-1"><i
+                        class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+
+            <div class="text-xs text-slate-600 space-y-2">
+                <p>Hỗ trợ nhập định dạng JSON hoặc Định dạng Văn bản TXT tự do như bên dưới:</p>
+                <div class="p-3 bg-slate-50 rounded-xl border font-mono text-[11px] leading-relaxed">
+                    UNIT: Unit 2<br>
+                    SECTION: Getting Started<br>
+                    QUESTION: Question 1. Singapore is a ______ country...<br>
+                    A. multiculturalism<br>
+                    B. multicultural<br>
+                    C. multiculturally<br>
+                    D. multiculturalist<br>
+                    ANSWER: B<br>
+                    EXPLANATION: multicultural (adj)<br>
+                    ---
+                </div>
+            </div>
+
+            <div>
+                <textarea id="bulk-import-input" rows="8" placeholder="Dán chuỗi JSON hoặc TXT vào đây..."
+                    class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 font-mono text-xs focus:ring-indigo-500 focus:border-indigo-500"></textarea>
+            </div>
+
+            <div class="flex justify-between items-center border-t border-slate-100 pt-3">
+                <button onclick="copySampleJSON()"
+                    class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs rounded-lg font-semibold">
+                    <i class="fa-regular fa-copy mr-1"></i> Copy JSON Mẫu
+                </button>
+                <div class="flex space-x-2">
+                    <button type="button" onclick="closeModal('modal-bulk')"
+                        class="px-4 py-2 bg-slate-100 text-slate-700 font-medium rounded-xl text-sm">Hủy</button>
+                    <button type="button" onclick="executeBulkImport()"
+                        class="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-sm">
+                        <i class="fa-solid fa-file-circle-plus mr-1"></i> Nhập Dữ Liệu
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- FULL JAVASCRIPT DATASET & APP LOGIC -->
+    <script>
+        /**
+         * FULL QUESTION BANK FROM DOCUMENT: K12 - ON TAP GIUA KY I
+         */
+        const RAW_K12_QUESTIONS = [
+            // ================== UNIT 2: A MULTICULTURAL WORLD ==================
+            // I. GETTING STARTED
+            {
+                id: "u2_gs_1", unit: "Unit 2", section: "Getting Started",
+                question: "Question 1. Singapore is a ______ country with people from many different cultures.",
+                options: ["multiculturalism", "multicultural", "multiculturally", "multiculturalist"],
+                correctIndex: 1, explanation: "multicultural (adj): đa văn hóa. Cần tính từ đứng trước danh từ 'country'."
+            },
+            {
+                id: "u2_gs_2", unit: "Unit 2", section: "Getting Started",
+                question: "Question 2. Ha Long Bay is one of the most popular tourist ______ in Vietnam.",
+                options: ["attractions", "attract", "attractive", "attractively"],
+                correctIndex: 0, explanation: "tourist attractions (n): địa điểm thu hút khách du lịch."
+            },
+            {
+                id: "u2_gs_3", unit: "Unit 2", section: "Getting Started",
+                question: "Question 3. Vietnamese ______ is famous for its fresh ingredients and balanced flavors.",
+                options: ["culture", "tradition", "cuisine", "custom"],
+                correctIndex: 2, explanation: "cuisine (n): nền ẩm thực. (nói về nguyên liệu và hương vị món ăn)."
+            },
+            {
+                id: "u2_gs_4", unit: "Unit 2", section: "Getting Started",
+                question: "Question 4. ______ is a popular team game often played at school festivals.",
+                options: ["Diversity", "Spring roll", "Grilling", "Tug of war"],
+                correctIndex: 3, explanation: "Tug of war (n): Trò chơi kéo co."
+            },
+            {
+                id: "u2_gs_5", unit: "Unit 2", section: "Getting Started",
+                question: "Question 5. The famous football player happily signed a (n) ______ for every child.",
+                options: ["autograph", "invitation", "ticket", "certificate"],
+                correctIndex: 0, explanation: "sign an autograph: ký tên lưu niệm."
+            },
+            {
+                id: "u2_gs_6", unit: "Unit 2", section: "Getting Started",
+                question: "Question 6. Each food ______ at the festival sold dishes from a different country.",
+                options: ["market", "temple", "restaurant", "booth"],
+                correctIndex: 3, explanation: "food booth (n): gian hàng ẩm thực."
+            },
+            {
+                id: "u2_gs_7", unit: "Unit 2", section: "Getting Started",
+                question: "Question 7. My sister is interested ______ learning foreign languages.",
+                options: ["at", "in", "on", "with"],
+                correctIndex: 1, explanation: "be interested in + V-ing: thích / quan tâm đến việc gì."
+            },
+            {
+                id: "u2_gs_8", unit: "Unit 2", section: "Getting Started",
+                question: "Question 8. I would love ______ Paris one day.",
+                options: ["visit", "visiting", "to visit", "visited"],
+                correctIndex: 2, explanation: "would love + to V: muốn/rất thích làm gì."
+            },
+
+            // II. LANGUAGE (ARTICLES)
+            {
+                id: "u2_lang_1", unit: "Unit 2", section: "Language",
+                question: "Question 1. Many volunteers joined the campaign to clean up the local beach and remove ________ plastic waste left by tourists.",
+                options: ["a", "an", "the", "(no article)"],
+                correctIndex: 2, explanation: "Dùng 'the' vì 'plastic waste' đã được xác định bởi mệnh đề 'left by tourists'."
+            },
+            {
+                id: "u2_lang_2", unit: "Unit 2", section: "Language",
+                question: "Question 2. Severe droughts and floods driven by climate change are causing serious problems all around ________ world.",
+                options: ["a", "an", "the", "(no article)"],
+                correctIndex: 2, explanation: "Cụm cố định: all around the world (trên toàn thế giới)."
+            },
+            {
+                id: "u2_lang_3", unit: "Unit 2", section: "Language",
+                question: "Question 3. Raising awareness through social media is ________ effective way to educate young people about online safety.",
+                options: ["a", "an", "the", "(no article)"],
+                correctIndex: 1, explanation: "Dùng 'an' trước danh từ đếm được số ít bắt đầu bằng nguyên âm 'effective'."
+            },
+            {
+                id: "u2_lang_4", unit: "Unit 2", section: "Language",
+                question: "Question 4. Recent economic data shows that the gap between the rich and the poor is widening in ________ United Kingdom.",
+                options: ["a", "an", "the", "(no article)"],
+                correctIndex: 2, explanation: "Dùng 'the' trước tên quốc gia có chứa chữ 'United': the United Kingdom."
+            },
+            {
+                id: "u2_lang_5", unit: "Unit 2", section: "Language",
+                question: "Question 5. Non-profit organizations believe that ________ children should have equal access to quality education regardless of their background.",
+                options: ["a", "an", "the", "(no article)"],
+                correctIndex: 3, explanation: "Dùng 'no article' (Ø) với danh từ số nhiều 'children' chỉ đối tượng chung chung."
+            },
+
+            // III. READING (VOCABULARY & CONTEXT)
+            {
+                id: "u2_read_1", unit: "Unit 2", section: "Reading",
+                question: "Question 1. I like this city ________ because it has good food, friendly people, and many parks.",
+                options: ["on the other hand", "in many respects", "on the rise", "a variety of"],
+                correctIndex: 1, explanation: "in many respects: ở nhiều phương diện / về nhiều mặt."
+            },
+            {
+                id: "u2_read_2", unit: "Unit 2", section: "Reading",
+                question: "Question 2. Street food is cheap and tasty. ________, it is not always clean.",
+                options: ["For example", "In addition", "As a result", "On the other hand"],
+                correctIndex: 3, explanation: "On the other hand: Mặt khác (chỉ sự đối lập giữa rẻ/ngon và không sạch)."
+            },
+            {
+                id: "u2_read_3", unit: "Unit 2", section: "Reading",
+                question: "Question 3. Many teenagers like to eat at a ________ because the food is cheap and quick.",
+                options: ["fast food chain", "dish up", "food trader", "unique taste"],
+                correctIndex: 0, explanation: "fast food chain: chuỗi cửa hàng thức ăn nhanh."
+            },
+            {
+                id: "u2_read_4", unit: "Unit 2", section: "Reading",
+                question: "Question 4. The market sells ________ fresh fruit, such as mangoes, bananas, and papayas.",
+                options: ["in many respects", "on the rise", "a variety of", "on the other hand"],
+                correctIndex: 2, explanation: "a variety of + N: đa dạng/nhiều loại."
+            },
+            {
+                id: "u2_read_5", unit: "Unit 2", section: "Reading",
+                question: "Question 5. Mai's mother always uses fresh ________ to cook dinner, such as vegetables and fish.",
+                options: ["dishes", "ingredients", "tastes", "impacts"],
+                correctIndex: 1, explanation: "ingredients (n): nguyên liệu nấu ăn."
+            },
+            {
+                id: "u2_read_6", unit: "Unit 2", section: "Reading",
+                question: "Question 6. Hoi An is a beautiful town that ________ many visitors with its old streets and lanterns.",
+                options: ["integrates", "promotes", "trades", "captivates"],
+                correctIndex: 3, explanation: "captivates (v): quyến rũ, thu hút."
+            },
+            {
+                id: "u2_read_7", unit: "Unit 2", section: "Reading",
+                question: "Question 7. The government wants to ________ Vietnamese coffee to people around the world.",
+                options: ["promote", "blend", "taste", "integrate"],
+                correctIndex: 0, explanation: "promote (v): quảng bá, thúc đẩy."
+            },
+            {
+                id: "u2_read_8", unit: "Unit 2", section: "Reading",
+                question: "Question 8. Too much sugar can have a bad ________ on our health.",
+                options: ["trade", "dish", "impact", "variety"],
+                correctIndex: 2, explanation: "have a bad impact on: có tác động tiêu cực đến."
+            },
+
+            // IV. SPEAKING
+            {
+                id: "u2_spk_1", unit: "Unit 2", section: "Speaking",
+                question: "Question 1. Rearrange to make a dialogue:\na. Nam: I agree. On the other hand, our traditional Vietnamese dishes like pho and bun cha are not very spicy in general.\nb. Lan: South Koreans seem to eat a lot of spicy food, such as kimchi and tteokbokki.\nc. Lan: That's very true! It’s interesting to see how different our traditional cuisines are.",
+                options: ["a-b-c", "b-c-a", "b-a-c", "c-b-a"],
+                correctIndex: 2, explanation: "Thứ tự hợp lý: Lan mở đầu về đồ ăn Hàn Quốc (b) -> Nam đồng ý và so sánh với món Việt (a) -> Lan chốt lại (c)."
+            },
+            {
+                id: "u2_spk_2", unit: "Unit 2", section: "Speaking",
+                question: "Question 2. Rearrange to make a dialogue:\na. Mai: That sounds fun! We can set up some food stalls offering traditional dishes from different cultures and call them 'Taste the World'.\nb. Quân: Our school is organising a Cultural Diversity Day, so let’s discuss what activities to include.\nc. Quân: I like your idea, but we don't have any cooking experience, so we should involve professional cooks instead.",
+                options: ["b-c-a", "b-a-c", "a-b-c", "c-b-a"],
+                correctIndex: 1, explanation: "Quân đề xuất thảo luận hoạt động (b) -> Mai đưa ra ý tưởng quầy ăn uống (a) -> Quân phản hồi lại ý tưởng (c)."
+            },
+            {
+                id: "u2_spk_3", unit: "Unit 2", section: "Speaking",
+                question: "Question 3. Rearrange:\na. Minh: That's right! While our Vietnamese ao dai is famous..., the Japanese kimono has wider sleeves...\nb. Hoa: Each costume truly reflects the unique history...\nc. Minh: I'm preparing a presentation about traditional clothing...\nd. Hoa: Well, you can compare the Asian traditional dresses...",
+                options: ["c-d-b-a", "c-a-d-b", "d-c-a-b", "c-d-a-b"],
+                correctIndex: 3, explanation: "Thứ tự: Minh hỏi gợi ý (c) -> Hoa gợi ý so sánh Á Đông (d) -> Minh đồng ý & phân tích áo dài/kimono (a) -> Hoa kết luận (b)."
+            },
+            {
+                id: "u2_spk_4", unit: "Unit 2", section: "Speaking",
+                question: "Question 4. Rearrange:\na. An: Definitely. Attending these festivals is the best way...\nb. An: Don't you think holding cultural festivals at high schools is very beneficial...?\nc. Bình: Exactly. It's because learning about foreign customs helps us respect cultural diversity...\nd. Bình: I totally agree. Such events give us a great chance to experience...",
+                options: ["b-d-c-a", "b-d-a-c", "b-a-d-c", "d-b-a-c"],
+                correctIndex: 1, explanation: "An hỏi ý kiến (b) -> Bình đồng ý & nêu lý do trải nghiệm (d) -> An tiếp lời về sự cởi mở (a) -> Bình chốt lại với từ 'Exactly' (c)."
+            },
+            {
+                id: "u2_spk_5", unit: "Unit 2", section: "Speaking",
+                question: "Question 5. Rearrange:\na. Lan: That’s a good point! Speaking of diversity...\nb. Quang: Right! For instance...\nc. Lan: It’s amazing how a simple greeting...\nd. Quang: I totally agree. It’s fascinating...\ne. Lan: I really love listening to traditional and modern music...",
+                options: ["d-e-a-b-c", "e-a-d-b-c", "e-d-b-a-c", "e-d-a-b-c"],
+                correctIndex: 3, explanation: "Thứ tự chuẩn: (e) Lan nói về âm nhạc -> (d) Quang đồng ý so sánh K-pop/V-pop -> (a) Lan chuyển sang chủ đề chào hỏi -> (b) Quang lấy ví dụ -> (c) Lan tổng kết."
+            },
+
+            // V. LISTENING
+            {
+                id: "u2_lis_1", unit: "Unit 2", section: "Listening",
+                question: "Question 1. Every April 22nd, people around the world ______ Earth Day to promote environmental protection and awareness.",
+                options: ["ignore", "celebrate", "prevent", "avoid"],
+                correctIndex: 1, explanation: "celebrate Earth Day: kỷ niệm Ngày Trái Đất."
+            },
+            {
+                id: "u2_lis_2", unit: "Unit 2", section: "Listening",
+                question: "Question 2. Cleaning up local parks has become an important ______ for our community, encouraging everyone to participate...",
+                options: ["daily chore", "random task", "annual event", "brief meeting"],
+                correctIndex: 2, explanation: "annual event (n): sự kiện thường niên."
+            },
+            {
+                id: "u2_lis_3", unit: "Unit 2", section: "Listening",
+                question: "Question 3. The rapid loss of rainforests is a serious ______ for alarm, threatening countless species...",
+                options: ["post", "sign", "point", "cause"],
+                correctIndex: 3, explanation: "cause for alarm: nguyên nhân gây lo ngại/báo động."
+            },
+            {
+                id: "u2_lis_4", unit: "Unit 2", section: "Listening",
+                question: "Question 4. Using reusable bags for shopping has become increasingly ______ among environmentally conscious consumers...",
+                options: ["popular", "rare", "difficult", "unpopular"],
+                correctIndex: 0, explanation: "popular (adj): phổ biến."
+            },
+            {
+                id: "u2_lis_5", unit: "Unit 2", section: "Listening",
+                question: "Question 5. Scientists are studying the ______ of plastic pollution to understand how it started and spread globally...",
+                options: ["ending", "origin", "destination", "impact"],
+                correctIndex: 1, explanation: "origin (n): nguồn gốc."
+            },
+            {
+                id: "u2_lis_6", unit: "Unit 2", section: "Listening",
+                question: "Question 6. Some believe that sustainable living practices have their roots in ______ that respected nature's cycles...",
+                options: ["modern trends", "quick fixes", "ancient festivals", "future plans"],
+                correctIndex: 2, explanation: "ancient festivals: các lễ hội cổ xưa."
+            },
+            {
+                id: "u2_lis_7", unit: "Unit 2", section: "Listening",
+                question: "Question 7. The statistics on species extinction paint a truly ______ picture of our planet's health, urging us to take immediate action.",
+                options: ["beautiful", "encouraging", "hopeful", "scary"],
+                correctIndex: 3, explanation: "scary picture: bức tranh đáng sợ/đáng lo ngại."
+            },
+            {
+                id: "u2_lis_8", unit: "Unit 2", section: "Listening",
+                question: "Question 8. After Halloween, many communities encourage composting old ______ to reduce food waste...",
+                options: ["plastic bottles", "pumpkin lanterns", "metal cans", "glass jars"],
+                correctIndex: 1, explanation: "pumpkin lanterns: đèn lồng bí ngô."
+            },
+            {
+                id: "u2_lis_9", unit: "Unit 2", section: "Listening",
+                question: "Question 9. Instead of traditional '______' for sweets, some communities organize 'green' Halloween events...",
+                options: ["costume making", "treasure hunting", "trick or treating", "spooky storytelling"],
+                correctIndex: 2, explanation: "trick or treating: trò chơi xin kẹo đêm Halloween."
+            },
+
+            // VI. WRITING
+            {
+                id: "u2_wri_1", unit: "Unit 2", section: "Writing",
+                question: "Question 1. Rearrange letter:\nDear Sir/Madam,\na. If you do have it, could you also let me know the price...?\nb. The title is The Art of Creative Thinking...\nc. Thank you in advance for your help!\nd. I am looking for a specific book and was wondering if your store has it...\ne. I would love to pick up a copy as soon as possible.",
+                options: ["d – b – a – e – c", "c – b – a – e – d", "e – b – a – c – d", "c – d – a – b – e"],
+                correctIndex: 0, explanation: "Thứ tự lá thư tìm sách: (d) Nêu mục đích tìm sách -> (b) Tên sách -> (a) Hỏi giá & giao hàng -> (e) Muốn mua sớm -> (c) Lời cảm ơn."
+            },
+            {
+                id: "u2_wri_2", unit: "Unit 2", section: "Writing",
+                question: "Question 2. Rearrange letter:\nDear Club President,\na. Could you provide details about practice schedules...?\nb. I am interested in joining the school’s basketball club...\nc. I am eager to be part of the team...\nd. I have played for my previous school’s team...\ne. Please let me know how I can sign up!",
+                options: ["c – d – e – b – a", "a – c – d – e – b", "b – d – a – c – e", "d – c – a – b – e"],
+                correctIndex: 2, explanation: "Thứ tự: (b) Bày tỏ nguyện vọng gia nhập -> (d) Nêu kinh nghiệm chơi bóng -> (a) Hỏi thông tin tập luyện -> (c) Cam kết đóng góp -> (e) Lời chào đăng ký."
+            },
+            {
+                id: "u2_wri_3", unit: "Unit 2", section: "Writing",
+                question: "Question 3. Rearrange paragraph:\na. With instant messaging, video calls, and online forums, people can now connect across the globe...\nb. The rise of social media has transformed human interaction...\nc. The constant exposure to online interactions can sometimes blur the line...\nd. However, this convenience has also altered the depth of conversations...\ne. While social media continues to shape modern communication, balancing its benefits...",
+                options: ["b – d – e – a – c", "b – c – d – e – a", "b – a – d – c – e", "b – e – c – a – d"],
+                correctIndex: 2, explanation: "Cấu trúc đoạn văn: (b) Topic sentence -> (a) Mặt tích cực kết nối -> (d) Tuy nhiên làm giảm độ sâu -> (c) Ảnh hưởng mối quan hệ -> (e) Kết luận."
+            },
+            {
+                id: "u2_wri_4", unit: "Unit 2", section: "Writing",
+                question: "Question 4. Rearrange paragraph:\na. Because algorithms often prioritise sensational content...\nb. Recognising this issue, more people are now learning to fact-check...\nc. Instead of waiting for traditional news broadcasts...\nd. Social media has revolutionised the way people receive and share news.\ne. However, this rapid spread of information also comes with risks...",
+                options: ["d – b – e – c – a", "d – c – e – a – b", "d – e – b – a – c", "d – a – e – b – c"],
+                correctIndex: 1, explanation: "Cấu trúc: (d) Mạng xã hội cách mạng hóa tin tức -> (c) Nhận tin tức tức thì -> (e) Rủi ro tin giả -> (a) Nguyên nhân do thuật toán -> (b) Giải pháp kiểm chứng tin tức."
+            },
+            {
+                id: "u2_wri_5", unit: "Unit 2", section: "Writing",
+                question: "Question 5. Rearrange paragraph:\na. Studies have shown that people who speak more than one language tend to have stronger memory...\nb. Furthermore, knowing an additional language opens up opportunities...\nc. Being bilingual offers significant cognitive, cultural, and career advantages.\nd. To meet this growing demand, more schools are now integrating foreign language...\ne. With globalisation increasing, many companies actively seek employees...",
+                options: ["c – d – b – e – a", "c – b – d – a – e", "c – a – b – e – d", "c – e – a – d – b"],
+                correctIndex: 2, explanation: "Cấu trúc: (c) Mở đầu lợi ích song ngữ -> (a) Lợi ích nhận thức & trí nhớ -> (b) Lợi ích văn hóa & sự nghiệp -> (e) Yêu cầu từ công ty toàn cầu -> (d) Trường học đáp ứng nhu cầu."
+            },
+
+            // VIII. LOOKING BACK (ARTICLES)
+            { id: "u2_lb_1", unit: "Unit 2", section: "Looking Back", question: "Question 1. My brother wants to become _______ engineer when he grows up.", options: ["a", "an", "the", "Ø"], correctIndex: 1, explanation: "an + engineer (nghề nghiệp bắt đầu bằng nguyên âm e)." },
+            { id: "u2_lb_2", unit: "Unit 2", section: "Looking Back", question: "Question 2. We visited _______ Eiffel Tower during our trip to Paris.", options: ["a", "an", "the", "Ø"], correctIndex: 2, explanation: "the + Eiffel Tower (công trình nổi tiếng duy nhất)." },
+            { id: "u2_lb_3", unit: "Unit 2", section: "Looking Back", question: "Question 3. Sarah bought _______ new laptop yesterday because her old one was broken.", options: ["a", "an", "the", "Ø"], correctIndex: 0, explanation: "a + new laptop (danh từ đếm được số ít chưa xác định)." },
+            { id: "u2_lb_4", unit: "Unit 2", section: "Looking Back", question: "Question 4. _______ Mount Everest is the highest mountain in the world.", options: ["A", "An", "The", "Ø"], correctIndex: 3, explanation: "Không dùng mạo từ (Ø) trước tên ngọn núi đơn lẻ (Mount Everest)." },
+            { id: "u2_lb_5", unit: "Unit 2", section: "Looking Back", question: "Question 5. I usually have _______ breakfast at 6:30 every morning.", options: ["a", "an", "the", "Ø"], correctIndex: 3, explanation: "Không dùng mạo từ (Ø) trước tên bữa ăn trong ngày." },
+            { id: "u2_lb_6", unit: "Unit 2", section: "Looking Back", question: "Question 6. Could you please close _______ window? It's getting cold in here.", options: ["a", "an", "the", "Ø"], correctIndex: 2, explanation: "the window: cửa sổ cụ thể trong phòng." },
+            { id: "u2_lb_7", unit: "Unit 2", section: "Looking Back", question: "Question 7. Jack is reading _______ interesting book about space exploration.", options: ["a", "an", "the", "Ø"], correctIndex: 1, explanation: "an + interesting book." },
+            { id: "u2_lb_8", unit: "Unit 2", section: "Looking Back", question: "Question 8. _______ Pacific Ocean is the largest ocean on Earth.", options: ["A", "An", "The", "Ø"], correctIndex: 2, explanation: "The + Pacific Ocean (tên đại dương luôn có 'the')." },
+            { id: "u2_lb_9", unit: "Unit 2", section: "Looking Back", question: "Question 9. My mother is _______ doctor at the local hospital.", options: ["a", "an", "the", "Ø"], correctIndex: 0, explanation: "a + doctor (chỉ nghề nghiệp)." },
+            { id: "u2_lb_10", unit: "Unit 2", section: "Looking Back", question: "Question 10. We often play _______ football after school.", options: ["a", "an", "the", "Ø"], correctIndex: 3, explanation: "Không dùng mạo từ (Ø) trước tên môn thể thao." },
+
+            // REVIEW UNIT 2 - PASSAGES
+            {
+                id: "u2_pass1_q1", unit: "Unit 2", section: "Passage Completion",
+                passageId: "u2_pass_pandas",
+                passageTitle: "Review Unit 2 - Passage 1: Giant Pandas",
+                passageText: `Native to China, giant pandas are one of the world's most beloved animals. Attracting millions of visitors, (18) _____. Recognized for their black-and-white fur and gentle nature, (19) _____. Facing habitat loss and a declining population, (20) _____. Protected by strict conservation efforts, (21) _____. Nowadays, with the development of technology and social networks, you can easily see images of these cute pandas on your phone screen.`,
+                question: "Question 18. Choose the best option for blank (18):",
+                options: [
+                    "Chinese people consider these adorable creatures important for China's tourism",
+                    "China's tourism and cultural identity depend largely on these adorable creatures",
+                    "these adorable creatures play a significant role in China's tourism and cultural identity",
+                    "these adorable creatures’ significant role in China's tourism and cultural identity"
+                ],
+                correctIndex: 2, explanation: "Mệnh đề rút gọn đồng chủ ngữ (Attracting millions of visitors...): Chủ ngữ mệnh đề chính phải là 'these adorable creatures'."
+            },
+            {
+                id: "u2_pass1_q2", unit: "Unit 2", section: "Passage Completion",
+                passageId: "u2_pass_pandas",
+                passageText: `Native to China, giant pandas are one of the world's most beloved animals. Attracting millions of visitors, (18) _____. Recognized for their black-and-white fur and gentle nature, (19) _____. Facing habitat loss and a declining population, (20) _____. Protected by strict conservation efforts, (21) _____. Nowadays, with the development of technology and social networks, you can easily see images of these cute pandas on your phone screen.`,
+                question: "Question 19. Choose the best option for blank (19):",
+                options: [
+                    "bamboo forests are their main habitat",
+                    "people are growing bamboo forests",
+                    "the destruction of bamboo forests",
+                    "pandas mainly live in bamboo forests"
+                ],
+                correctIndex: 3, explanation: "Đồng chủ ngữ với 'Recognized for...': 'pandas mainly live in bamboo forests'."
+            },
+            {
+                id: "u2_pass1_q3", unit: "Unit 2", section: "Passage Completion",
+                passageId: "u2_pass_pandas",
+                passageText: `Native to China, giant pandas are one of the world's most beloved animals. Attracting millions of visitors, (18) _____. Recognized for their black-and-white fur and gentle nature, (19) _____. Facing habitat loss and a declining population, (20) _____. Protected by strict conservation efforts, (21) _____. Nowadays, with the development of technology and social networks, you can easily see images of these cute pandas on your phone screen.`,
+                question: "Question 20. Choose the best option for blank (20):",
+                options: [
+                    "it is said that pandas are a symbol of wildlife conservation",
+                    "many wildlife conservation programs for pandas",
+                    "pandas have also become a symbol of wildlife conservation",
+                    "governments put the most conservation efforts on pandas"
+                ],
+                correctIndex: 2, explanation: "Đồng chủ ngữ với 'Facing habitat loss...': 'pandas have also become...'."
+            },
+            {
+                id: "u2_pass1_q4", unit: "Unit 2", section: "Passage Completion",
+                passageId: "u2_pass_pandas",
+                passageText: `Native to China, giant pandas are one of the world's most beloved animals. Attracting millions of visitors, (18) _____. Recognized for their black-and-white fur and gentle nature, (19) _____. Facing habitat loss and a declining population, (20) _____. Protected by strict conservation efforts, (21) _____. Nowadays, with the development of technology and social networks, you can easily see images of these cute pandas on your phone screen.`,
+                question: "Question 21. Choose the best option for blank (21):",
+                options: [
+                    "their numbers have gradually increased in recent years",
+                    "pandas have recovered significantly in recent years",
+                    "there has been an increase in the number of pandas in recent years",
+                    "it is increasing in terms of the number of pandas"
+                ],
+                correctIndex: 0, explanation: "Protected by strict conservation efforts, their numbers have gradually increased..."
+            },
+
+            {
+                id: "u2_pass2_q1", unit: "Unit 2", section: "Passage Completion",
+                passageId: "u2_pass_community",
+                passageTitle: "Review Unit 2 - Passage 2: Community Improvement",
+                passageText: `Improving the community is something that each and every one of us can contribute to. Firstly, one of the simplest ways to get involved is by dedicating some of your time to local groups or events that aim to better the community. (1) _________, participating in neighborhood clean-up efforts, or joining community gardening projects.
+Secondly, (2) __________ is another effective way to actively engage in discussions about potential improvements. (3) ___________, you can play a role in shaping the direction of community policies. 
+Additionally, taking the initiative to start (4) ___________ can have a significant impact. Whether it's organizing a neighborhood watch program or starting a campaign to improve local infrastructure, (5) __________.
+Ultimately, by working together and (6) ___________ in community-building activities, we can all contribute to creating a more vibrant, inclusive, and thriving community for everyone to enjoy.`,
+                question: "Question 1. Choose the option for blank (1):",
+                options: [
+                    "This might involve volunteering at a local food bank",
+                    "Which might involve volunteering at a local food bank",
+                    "What might involve volunteering at a local food bank",
+                    "Involving volunteering at a local food bank"
+                ],
+                correctIndex: 0, explanation: "'This might involve...' bổ sung ý nghĩa cho câu trước."
+            },
+            {
+                id: "u2_pass2_q2", unit: "Unit 2", section: "Passage Completion",
+                passageId: "u2_pass_community",
+                passageText: `Improving the community is something that each and every one of us can contribute to. Firstly, one of the simplest ways to get involved is by dedicating some of your time to local groups or events that aim to better the community. (1) _________, participating in neighborhood clean-up efforts, or joining community gardening projects.
+Secondly, (2) __________ is another effective way to actively engage in discussions about potential improvements. (3) ___________, you can play a role in shaping the direction of community policies. 
+Additionally, taking the initiative to start (4) ___________ can have a significant impact. Whether it's organizing a neighborhood watch program or starting a campaign to improve local infrastructure, (5) __________.
+Ultimately, by working together and (6) ___________ in community-building activities, we can all contribute to creating a more vibrant, inclusive, and thriving community for everyone to enjoy.`,
+                question: "Question 2. Choose the option for blank (2):",
+                options: ["when we attend community meetings", "to attending community meetings", "attending community meetings", "having attended community meetings"],
+                correctIndex: 2, explanation: "Danh động từ 'attending community meetings' làm chủ ngữ."
+            },
+            {
+                id: "u2_pass2_q3", unit: "Unit 2", section: "Passage Completion",
+                passageId: "u2_pass_community",
+                passageText: `Improving the community is something that...`,
+                question: "Question 3. Choose the option for blank (3):",
+                options: [
+                    "By sharing your thoughts, concerns, and ideas",
+                    "Your thoughts, concerns, and ideas from sharing",
+                    "Thoughts, concerns, and ideas of your sharing",
+                    "You share your thoughts, concerns, and ideas"
+                ],
+                correctIndex: 0, explanation: "'By + V-ing': Bằng cách chia sẻ suy nghĩ và ý tưởng..."
+            },
+            {
+                id: "u2_pass2_q4", unit: "Unit 2", section: "Passage Completion",
+                passageId: "u2_pass_community",
+                passageText: `Improving the community is something that...`,
+                question: "Question 4. Choose the option for blank (4):",
+                options: ["their projects", "its own projects", "those projects", "your own projects"],
+                correctIndex: 3, explanation: "start your own projects (bắt đầu các dự án của chính bạn)."
+            },
+            {
+                id: "u2_pass2_q5", unit: "Unit 2", section: "Passage Completion",
+                passageId: "u2_pass_community",
+                passageText: `Improving the community is something that...`,
+                question: "Question 5. Choose the option for blank (5):",
+                options: [
+                    "you can significantly improve these efforts",
+                    "these efforts can lead to significant improvements",
+                    "leading to some significant improvements for you",
+                    "significant improvements can lead to these efforts"
+                ],
+                correctIndex: 1, explanation: "these efforts can lead to significant improvements (những nỗ lực này có thể dẫn đến những cải thiện đáng kể)."
+            },
+            {
+                id: "u2_pass2_q6", unit: "Unit 2", section: "Passage Completion",
+                passageId: "u2_pass_community",
+                passageText: `Improving the community is something that...`,
+                question: "Question 6. Choose the option for blank (6):",
+                options: ["to actively participating", "actively participating", "actively participate", "to actively participate"],
+                correctIndex: 1, explanation: "Cấu trúc song song: 'by working together and actively participating in...'"
+            },
+            // REVIEW UNIT 2 - PASSAGE 3 (Music Education)
+            {
+                id: "u2_pass3_q1", unit: "Unit 2", section: "Passage Completion",
+                passageId: "u2_pass_music_edu",
+                passageTitle: "Review Unit 2 - Passage 3: Music Education",
+                passageText: `Technology has transformed music education in recent years. Students who were previously excluded can now participate fully in musical learning. If teachers had not embraced digital tools, (1)_________. Modern applications allow students to create music without traditional instruments, and they can learn at their own pace. The software that developers create specifically for music education helps students with different abilities to express themselves creatively. Music teachers are continuously trained to use these new technologies, so they can better support all students. Schools have invested in adaptive equipment, and (2)_________. By removing physical barriers, technology enables everyone to experience the joy of music. Having access to music education improves students' cognitive skills while also enhancing their emotional well-being. When students use tablets and smartphones, they can practice at home and in school.\n\nVirtual reality systems, becoming more affordable, (3)_________. Not only does technology make music education more accessible, but it also creates new pathways for creativity and collaboration. Digital platforms connect students with musicians around the world, expanding their understanding of diverse musical traditions. Adaptive instruments have been designed to accommodate various physical abilities, allowing students (4)_________. Had traditional methods remained unchanged, many talented individuals would have missed opportunities to develop their musical potential. (5)_________. Students whose needs were previously overlooked can now thrive in inclusive musical environments where technology serves as the great equalizer.`,
+                question: "Question 1. Choose option for blank (1):",
+                options: [
+                    "many students with disabilities would still face significant barriers",
+                    "several experts which studied the problem offered innovative solutions",
+                    "the research papers whom they published contained valuable insights",
+                    "most universities having implement policies saw improved outcomes"
+                ],
+                correctIndex: 0, explanation: "Câu điều kiện loại 3 / hỗn hợp. Mệnh đề chính cần một mệnh đề mang nghĩa tiêu cực nếu không có công cụ số."
+            },
+            {
+                id: "u2_pass3_q2", unit: "Unit 2", section: "Passage Completion",
+                passageId: "u2_pass_music_edu",
+                passageText: `Technology has transformed music education in recent years...`,
+                question: "Question 2. Choose option for blank (2):",
+                options: [
+                    "the professor preparing lectures without adequate research materials",
+                    "universities across the country is implementing new policies",
+                    "they have updated their curriculum to be more inclusive",
+                    "students complete assignments the deadline was extended yesterday"
+                ],
+                correctIndex: 2, explanation: "Cần một mệnh đề độc lập hoàn chỉnh đứng sau 'and' có chủ ngữ 'they' (ám chỉ Schools/Teachers)."
+            },
+            {
+                id: "u2_pass3_q3", unit: "Unit 2", section: "Passage Completion",
+                passageId: "u2_pass_music_edu",
+                passageText: `Technology has transformed music education in recent years...`,
+                question: "Question 3. Choose option for blank (3):",
+                options: [
+                    "providing comprehensive science courses while overlooking critical thinking skills",
+                    "offer immersive musical experiences for all students regardless of physical limitations",
+                    "having designed technology programs but failing addressing practical applications",
+                    "develop innovative teaching methods that improving test scores across departments"
+                ],
+                correctIndex: 1, explanation: "Chủ ngữ là 'Virtual reality systems' (số nhiều), động từ chia ở dạng nguyên mẫu 'offer'."
+            },
+            {
+                id: "u2_pass3_q4", unit: "Unit 2", section: "Passage Completion",
+                passageId: "u2_pass_music_edu",
+                passageText: `Technology has transformed music education in recent years...`,
+                question: "Question 4. Choose option for blank (4):",
+                options: [
+                    "that will previously attended workshops before submitting their applications",
+                    "has completed research projects since they will graduate next semester",
+                    "whom excel in mathematics receive additional mentoring sessions",
+                    "who might otherwise be excluded to participate in ensemble performances"
+                ],
+                correctIndex: 3, explanation: "Mệnh đề quan hệ bổ nghĩa cho 'students', đại từ quan hệ chủ ngữ 'who'."
+            },
+            {
+                id: "u2_pass3_q5", unit: "Unit 2", section: "Passage Completion",
+                passageId: "u2_pass_music_edu",
+                passageText: `Technology has transformed music education in recent years...`,
+                question: "Question 5. Choose option for blank (5):",
+                options: [
+                    "Advanced research methodologies currently developing creates potential for medical breakthroughs",
+                    "Digital learning platforms widely available across academic institutions since last year",
+                    "Modern architectural designs frequently incorporating sustainability elements they reduce environmental impact",
+                    "Innovative solutions continuously emerging make the future of music education promising"
+                ],
+                correctIndex: 3, explanation: "Cần một câu hoàn chỉnh tổng kết ý nghĩa đoạn văn về tương lai của giáo dục âm nhạc."
+            },
+
+
+            // ================== UNIT 3: GREEN LIVING ==================
+            // I. GETTING STARTED
+            { id: "u3_gs_1", unit: "Unit 3", section: "Getting Started", question: "Question 1. Visitors are encouraged to choose ______ accommodation to help reduce environmental pollution.", options: ["gradually", "eco-friendly", "refillable", "throwaway"], correctIndex: 1, explanation: "eco-friendly (adj): thân thiện với môi trường." },
+            { id: "u3_gs_2", unit: "Unit 3", section: "Getting Started", question: "Question 2. Many tourists now prefer ______ because it allows them to enjoy nature while protecting the environment.", options: ["ecosystem", "ecotourism", "biodiversity", "conservationist"], correctIndex: 1, explanation: "ecotourism (n): du lịch sinh thái." },
+            { id: "u3_gs_3", unit: "Unit 3", section: "Getting Started", question: "Question 3. Banana peels can ______ naturally within a few weeks under suitable conditions.", options: ["refill", "judge", "throw away", "decompose"], correctIndex: 3, explanation: "decompose (v): phân hủy tự nhiên." },
+            { id: "u3_gs_4", unit: "Unit 3", section: "Getting Started", question: "Question 4. Please don't ______ plastic bottles after using them. Recycle them instead.", options: ["rush out", "refill", "throw away", "break down"], correctIndex: 2, explanation: "throw away (phr v): vứt bỏ." },
+            { id: "u3_gs_5", unit: "Unit 3", section: "Getting Started", question: "Question 5. Students are advised to bring a ______ water bottle instead of buying disposable ones every day.", options: ["refilling", "refilled", "refillable", "refill"], correctIndex: 2, explanation: "refillable (adj): có thể tái sử dụng / làm đầy lại." },
+            { id: "u3_gs_6", unit: "Unit 3", section: "Getting Started", question: "Question 6. The competition will be ______ by three environmental experts from different universities.", options: ["judgement", "judging", "judged", "judgeable"], correctIndex: 2, explanation: "be judged (được chấm điểm/đánh giá - dạng bị động)." },
+            { id: "u3_gs_7", unit: "Unit 3", section: "Getting Started", question: "Question 7. The poster on the classroom wall serves as a useful ______ to save electricity after each lesson.", options: ["remind", "reminder", "reminding", "remembrance"], correctIndex: 1, explanation: "reminder (n): lời nhắc nhở." },
+            { id: "u3_gs_8", unit: "Unit 3", section: "Getting Started", question: "Question 8. The environmental campaign has led to a ______ reduction in the use of single-use plastics...", options: ["gradually", "gradualness", "gradual", "grade"], correctIndex: 2, explanation: "gradual (adj): dần dần, từ từ (đứng trước danh từ reduction)." },
+            { id: "u3_gs_9", unit: "Unit 3", section: "Getting Started", question: "Question 9. The guide reminded visitors not to pick flowers, ______ they might damage the natural habitat.", options: ["in spite of", "otherwise", "instead of", "in addition to"], correctIndex: 1, explanation: "otherwise: nếu không thì." },
+            { id: "u3_gs_10", unit: "Unit 3", section: "Getting Started", question: "Question 10. You can refill your water bottle at the station ______ buying a new plastic one.", options: ["due to", "as well as", "instead of", "provided that"], correctIndex: 2, explanation: "instead of + V-ing: thay vì làm gì." },
+            { id: "u3_gs_11", unit: "Unit 3", section: "Getting Started", question: "Question 11. The hikers decided to continue their ecotour ______ the heavy rain made the paths slippery.", options: ["even though", "because of", "so that", "as if"], correctIndex: 0, explanation: "even though + clause: mặc dù." },
+            { id: "u3_gs_12", unit: "Unit 3", section: "Getting Started", question: "Question 12. The museum provided visitors with reusable cups ______ reduce plastic waste during the event.", options: ["such as", "rather than", "in order to", "apart from"], correctIndex: 2, explanation: "in order to + V: để làm gì." },
+            { id: "u3_gs_13", unit: "Unit 3", section: "Getting Started", question: "Question 13. We should avoid buying unnecessary products; ______, we can reduce the amount of waste we produce.", options: ["meanwhile", "as a result", "whereas", "nevertheless"], correctIndex: 1, explanation: "as a result: kết quả là." },
+            { id: "u3_gs_14", unit: "Unit 3", section: "Getting Started", question: "Question 14. The children rushed out of the classroom ______ they heard the school bell ring.", options: ["despite", "unless", "the moment", "owing to"], correctIndex: 2, explanation: "the moment + clause: ngay khoảnh khắc khi..." },
+            { id: "u3_gs_15", unit: "Unit 3", section: "Getting Started", question: "Question 15. Many people carry reusable shopping bags ______ plastic bags when they go shopping.", options: ["regardless of", "rather than", "except for", "in case of"], correctIndex: 1, explanation: "rather than: hơn là / thay vì." },
+
+            // II. LANGUAGE (PREPOSITIONS & RELATIVE CLAUSES)
+            { id: "u3_lang_1", unit: "Unit 3", section: "Language", question: "Question 1. Many students struggle to cope _______ the pressure of final exams.", options: ["in", "with", "on", "at"], correctIndex: 1, explanation: "cope with: đối phó / đương đầu với." },
+            { id: "u3_lang_2", unit: "Unit 3", section: "Language", question: "Question 2. You should apologize _______ your teacher for arriving late.", options: ["with", "about", "to", "from"], correctIndex: 2, explanation: "apologize to somebody for something: xin lỗi ai." },
+            { id: "u3_lang_3", unit: "Unit 3", section: "Language", question: "Question 3. The manager insisted _______ checking every detail before signing the contract.", options: ["to", "on", "for", "with"], correctIndex: 1, explanation: "insist on + V-ing: khăng khăng / kiên quyết làm gì." },
+            { id: "u3_lang_4", unit: "Unit 3", section: "Language", question: "Question 4. I don't agree _______ everything he says, but I respect his opinion.", options: ["at", "in", "with", "about"], correctIndex: 2, explanation: "agree with: đồng ý với." },
+            { id: "u3_lang_5", unit: "Unit 3", section: "Language", question: "Question 5. Everyone should believe _______ themselves if they want to succeed.", options: ["on", "at", "in", "with"], correctIndex: 2, explanation: "believe in: tin tưởng vào." },
+            { id: "u3_lang_6", unit: "Unit 3", section: "Language", question: "Question 6. My grandparents belong _______ a local gardening club.", options: ["for", "to", "in", "on"], correctIndex: 1, explanation: "belong to: thuộc về." },
+            { id: "u3_lang_7", unit: "Unit 3", section: "Language", question: "Question 7. The police are looking _______ the cause of the accident.", options: ["after", "up", "into", "at"], correctIndex: 2, explanation: "look into: điều tra, xem xét." },
+            { id: "u3_lang_8", unit: "Unit 3", section: "Language", question: "Question 8. We can always depend _______ our friends when we need help.", options: ["with", "in", "on", "for"], correctIndex: 2, explanation: "depend on: phụ thuộc / dựa vào." },
+            { id: "u3_lang_9", unit: "Unit 3", section: "Language", question: "Question 9. The teacher congratulated Linda _______ winning first prize in the competition.", options: ["to", "about", "on", "with"], correctIndex: 2, explanation: "congratulate somebody on something: chúc mừng ai về cái gì." },
+            { id: "u3_lang_10", unit: "Unit 3", section: "Language", question: "Question 10. Parents should protect their children _______ online dangers.", options: ["at", "on", "from", "for"], correctIndex: 2, explanation: "protect from: bảo vệ khỏi." },
+            { id: "u3_lang_11", unit: "Unit 3", section: "Language", question: "Question 11. The girl _______ won the scholarship is my cousin.", options: ["whom", "who", "whose", "which"], correctIndex: 1, explanation: "who + V: thay thế cho đại từ chỉ người làm chủ ngữ." },
+            { id: "u3_lang_12", unit: "Unit 3", section: "Language", question: "Question 12. The author _______ novels have been translated into many languages will visit our school next week.", options: ["who", "whom", "whose", "which"], correctIndex: 2, explanation: "whose + N: chỉ sở hữu (tác giả có các cuốn tiểu thuyết...)." },
+            { id: "u3_lang_13", unit: "Unit 3", section: "Language", question: "Question 13. The laptop _______ I bought last month has already stopped working.", options: ["who", "whom", "which", "whose"], correctIndex: 2, explanation: "which: đại từ quan hệ thay thế cho vật (laptop)." },
+            { id: "u3_lang_14", unit: "Unit 3", section: "Language", question: "Question 14. The café _______ we usually meet has recently been renovated.", options: ["when", "why", "where", "which"], correctIndex: 2, explanation: "where: trạng từ quan hệ chỉ nơi chốn." },
+            { id: "u3_lang_15", unit: "Unit 3", section: "Language", question: "Question 15. I'll never forget the day _______ I graduated from university.", options: ["where", "when", "why", "which"], correctIndex: 1, explanation: "when: trạng từ quan hệ chỉ thời gian (the day)." },
+            { id: "u3_lang_16", unit: "Unit 3", section: "Language", question: "Question 16. Nobody knows the reason _______ the meeting was cancelled.", options: ["when", "where", "which", "why"], correctIndex: 3, explanation: "why: trạng từ quan hệ chỉ lý do (the reason)." },
+            { id: "u3_lang_17", unit: "Unit 3", section: "Language", question: "Question 17. She forgot to submit the assignment on time, _______ disappointed her teacher.", options: ["that", "what", "which", "who"], correctIndex: 2, explanation: "which đứng sau dấu phẩy thay thế cho cả mệnh đề phía trước." },
+            { id: "u3_lang_18", unit: "Unit 3", section: "Language", question: "Question 18. Tom passed the driving test on his first attempt, _______ surprised everyone.", options: ["who", "that", "which", "whom"], correctIndex: 2, explanation: "which thay thế cho cả mệnh đề trước." },
+            { id: "u3_lang_19", unit: "Unit 3", section: "Language", question: "Question 19. The company for _______ my father works exports goods worldwide.", options: ["who", "which", "whom", "whose"], correctIndex: 1, explanation: "Giới từ + which (chỉ vật/công ty)." },
+            { id: "u3_lang_20", unit: "Unit 3", section: "Language", question: "Question 20. The woman to _______ you were talking is the school librarian.", options: ["who", "whom", "whose", "which"], correctIndex: 1, explanation: "Giới từ to + whom (chỉ người làm tân ngữ)." },
+            { id: "u3_lang_21", unit: "Unit 3", section: "Language", question: "Question 21. The village in _______ my grandparents were born has changed a lot.", options: ["who", "which", "whom", "whose"], correctIndex: 1, explanation: "in which = where (chỉ nơi chốn)." },
+            { id: "u3_lang_22", unit: "Unit 3", section: "Language", question: "Question 22. The students completed the project ahead of schedule, _______ impressed their teacher.", options: ["that", "whom", "which", "where"], correctIndex: 2, explanation: "which thay thế cho mệnh đề trước." },
+
+            // III. READING
+            { id: "u3_read_1", unit: "Unit 3", section: "Reading", question: "Question 1. Plastic waste may take hundreds of years to ______ in landfills.", options: ["package", "decompose", "recycle", "contaminate"], correctIndex: 1, explanation: "decompose (v): phân hủy." },
+            { id: "u3_read_2", unit: "Unit 3", section: "Reading", question: "Question 2. Many schools encourage students to use ______ bottles instead of single-use plastic ones.", options: ["contaminated", "symbolic", "reusable", "reduced"], correctIndex: 2, explanation: "reusable (adj): tái sử dụng." },
+            { id: "u3_read_3", unit: "Unit 3", section: "Reading", question: "Question 3. Recycling plastic is an effective way to reduce environmental ______.", options: ["contaminate", "contamination", "contaminated", "contaminating"], correctIndex: 1, explanation: "environmental contamination (n): sự ô nhiễm môi trường." },
+            { id: "u3_read_4", unit: "Unit 3", section: "Reading", question: "Question 4. Plastic bags are harmful to the environment, ______ many people are trying to reduce their use.", options: ["because", "although", "so", "unless"], correctIndex: 2, explanation: "so: vì vậy / do đó." },
+            { id: "u3_read_5", unit: "Unit 3", section: "Reading", question: "Question 5. The government is carrying out campaigns to ______ across the country.", options: ["reduce plastic pollution", "make plastic pollution", "create plastic pollution", "collect plastic pollution"], correctIndex: 0, explanation: "reduce plastic pollution: giảm thiểu ô nhiễm rác thải nhựa." },
+            { id: "u3_read_6", unit: "Unit 3", section: "Reading", question: "Question 6. Before recycling plastic bottles, you should ______ them thoroughly with clean water.", options: ["throw away", "rinse out", "cut down on", "pack up"], correctIndex: 1, explanation: "rinse out (phr v): súc rửa sạch." },
+            { id: "u3_read_7", unit: "Unit 3", section: "Reading", question: "Question 7. Public transport produces less pollution, ______ encourages more people to choose environmentally friendly travel.", options: ["who", "where", "which", "whose"], correctIndex: 2, explanation: "which thay thế cho cả mệnh đề phía trước." },
+            { id: "u3_read_8", unit: "Unit 3", section: "Reading", question: "Question 8. Plastic bottles should ______ before being sent to recycling factories.", options: ["recycle", "be recycled", "be recycling", "recycled"], correctIndex: 1, explanation: "should be recycled: dạng bị động của động từ khuyết thiếu." },
+
+            // IV. SPEAKING
+            { id: "u3_spk_1", unit: "Unit 3", section: "Speaking", question: "Question 1. Rearrange:\na. Lily: That's a great opportunity...\nb. Tom: I'm going to apply for a summer internship...\nc. Lily: I hope you get accepted.\nd. Tom: Thanks. I think it will help me prepare...", options: ["b - a - d - c", "a - b - c - d", "c - b - a - d", "b - d - a - c"], correctIndex: 0, explanation: "Tom thông báo nộp đơn (b) -> Lily khen cơ hội tốt (a) -> Tom cảm ơn (d) -> Lily chúc may mắn (c)." },
+            { id: "u3_spk_2", unit: "Unit 3", section: "Speaking", question: "Question 2. Rearrange:\na. Kevin: I'd be happy to. What time does it start?\nb. Sarah: We're organizing a charity book fair...\nc. Sarah: Would you like to help us?\nd. Kevin: I think it's a meaningful activity.", options: ["c - a - d - b", "b - c - a - d", "b - d - c - a", "a - c - b - d"], correctIndex: 2, explanation: "Sarah giới thiệu hội chợ (b) -> Kevin nhận xét ý nghĩa (d) -> Sarah rủ tham gia (c) -> Kevin đồng ý và hỏi giờ (a)." },
+            { id: "u3_spk_3", unit: "Unit 3", section: "Speaking", question: "Question 3. Rearrange:\na. Lucy: That's why many people are choosing public transport...\nb. Ben: I usually take the bus instead of riding my motorbike.\nc. Lucy: Really? Why have you changed your habit?\nd. Ben: It saves money and helps reduce air pollution.", options: ["b - d - c - a", "c - b - a - d", "b - c - d - a", "d - b - c - a"], correctIndex: 2, explanation: "Ben kể thói quen đi xe buýt (b) -> Lucy hỏi lý do (c) -> Ben nêu tiết kiệm & bảo vệ môi trường (d) -> Lucy chốt lại (a)." },
+            { id: "u3_spk_4", unit: "Unit 3", section: "Speaking", question: "Question 4. Rearrange:\na. Emma: Have you finished your personal statement yet?\nb. Alex: Not yet. I'm still thinking about what to write.\nc. Emma: You should focus on your strengths and future goals.\nd. Alex: That's helpful. I'll start writing tonight.", options: ["b - a - d - c", "a - b - c - d", "c - b - a - d", "a - c - b - d"], correctIndex: 1, explanation: "Emma hỏi tiến độ (a) -> Alex bảo chưa xong (b) -> Emma cho lời khuyên (c) -> Alex tiếp thu (d)." },
+            { id: "u3_spk_5", unit: "Unit 3", section: "Speaking", question: "Question 5. Rearrange:\na. David: AI can also explain difficult topics more clearly.\nb. Anna: I've started using AI to help me study English.\nc. David: Has it been useful?\nd. Anna: Yes. It has made learning much easier for me.", options: ["d - a - b - c", "b - d - c - a", "b - c - d - a", "c - b - a - d"], correctIndex: 2, explanation: "Anna nói về dùng AI (b) -> David hỏi có ích không (c) -> Anna bảo có (d) -> David bổ sung điểm mạnh của AI (a)." },
+
+            // V. LISTENING
+            { id: "u3_lis_1", unit: "Unit 3", section: "Listening", question: "Question 1. Household food waste can be used to make ______ for growing plants.", options: ["landfill", "compost", "packaging", "cardboard"], correctIndex: 1, explanation: "compost (n): phân hữu cơ ủ từ rác thải thực phẩm." },
+            { id: "u3_lis_2", unit: "Unit 3", section: "Listening", question: "Question 2. Before making compost, collect fruit ______ and dry leaves.", options: ["layers", "peels", "materials", "soils"], correctIndex: 1, explanation: "fruit peels: vỏ trái cây." },
+            { id: "u3_lis_3", unit: "Unit 3", section: "Listening", question: "Question 3. Compost improves soil quality and supports healthy plant ______.", options: ["grow", "growing", "growth", "grown"], correctIndex: 2, explanation: "plant growth (n): sự phát triển của cây trồng." },
+            { id: "u3_lis_4", unit: "Unit 3", section: "Listening", question: "Question 4. First, collect household waste. ______, add a layer of dry leaves.", options: ["Because", "Although", "Next", "Unless"], correctIndex: 2, explanation: "Next (Tiếp theo) chỉ thứ tự quy trình." },
+            { id: "u3_lis_5", unit: "Unit 3", section: "Listening", question: "Question 5. To make compost successfully, remember to ______ before adding more materials.", options: ["create a pile", "add a layer", "make soil", "collect a compost"], correctIndex: 1, explanation: "add a layer: thêm một lớp lá khô/đất." },
+            { id: "u3_lis_6", unit: "Unit 3", section: "Listening", question: "Question 6. Don't forget to ______ the pile with water regularly to speed up decomposition.", options: ["put away", "rinse out", "cover up", "mix up"], correctIndex: 3, explanation: "mix up / turn the pile: trộn đều ủ phân." },
+            { id: "u3_lis_7", unit: "Unit 3", section: "Listening", question: "Question 7. Compost ______ from household waste and garden materials.", options: ["makes", "is made", "made", "has made"], correctIndex: 1, explanation: "is made: dạng bị động." },
+            { id: "u3_lis_8", unit: "Unit 3", section: "Listening", question: "Question 8. You should start by ______ fruit peels and vegetable scraps.", options: ["collect", "collected", "collecting", "to collect"], correctIndex: 2, explanation: "by + V-ing: bằng cách làm gì." },
+
+            // VI. WRITING
+            { id: "u3_wri_1", unit: "Unit 3", section: "Writing", question: "Question 1. Rearrange letter:\nDear Lisa,\na. I have already finished reading the first three chapters.\nb. Thanks for lending me your favourite novel.\nc. The story is exciting and the characters are interesting.\nd. Now I understand why you like this book so much.\ne. I'll return it to you next Monday.", options: ["b – a – c – d – e", "a – b – d – c – e", "b – c – d – a – e", "c – b – a – e – d"], correctIndex: 0, explanation: "Thứ tự: (b) Cảm ơn cho mượn sách -> (a) Đã đọc 3 chương -> (c) Khen cốt truyện -> (d) Hiểu lý do Lisa thích -> (e) Hẹn trả." },
+            { id: "u3_wri_2", unit: "Unit 3", section: "Writing", question: "Question 2. Rearrange letter:\nDear Mr. Green,\na. However, an urgent family matter came up...\nb. I am writing to sincerely apologize for missing our scheduled meeting...\nc. I fully understand how valuable your time is...\nd. I had every intention of attending...\ne. Would it be possible for us to reschedule...?", options: ["b – a – d – c – e", "b – d – a – c – e", "b – d – a – e – c", "c – b – d – a – e"], correctIndex: 1, explanation: "Thứ tự: (b) Xin lỗi vắng mặt -> (d) Dự định tham gia -> (a) Tuy nhiên có việc đột xuất -> (c) Đột xuất hối tiếc -> (e) Xin hẹn lại." },
+            { id: "u3_wri_3", unit: "Unit 3", section: "Writing", question: "Question 3. Rearrange letter:\nHi Alex,\na. Furthermore, watching English movies with subtitles...\nb. It's great to hear that you have decided to start learning English.\nc. First, you should try to learn at least five new words every day.\nd. However, don't try to memorize too much at once...\ne. Just be patient, and you will see your progress...", options: ["b - c - a - d – e", "b - a - c - d – e", "c - a - d - b – e", "b - c - d - a - e"], correctIndex: 3, explanation: "Thứ tự: (b) Chúc mừng học tiếng Anh -> (c) Lời khuyên 1 (từ vựng) -> (d) Cảnh báo không học quá sức -> (a) Lời khuyên 2 (xem phim) -> (e) Động viên kiên nhẫn." },
+            { id: "u3_wri_4", unit: "Unit 3", section: "Writing", question: "Question 4. Rearrange paragraph:\na. As a result, city dwellers frequently suffer from respiratory illnesses...\nb. Rapid urbanization has led to severe environmental degradation...\nc. Furthermore, the lack of green spaces like parks exacerbates the heat island effect...\nd. To solve this problem, local governments must invest more...\ne. The primary cause of this issue is the massive volume of emissions...", options: ["b - e - c - a – d", "b - c - e - a – d", "e - b - c - a – d", "b - e - a - c - d"], correctIndex: 0, explanation: "Thứ tự: (b) Đô thị hóa gây suy thoái -> (e) Nguyên nhân phát thải -> (c) Thiếu mảng xanh -> (a) Hậu quả sức khỏe -> (d) Giải pháp." },
+            { id: "u3_wri_5", unit: "Unit 3", section: "Writing", question: "Question 5. Rearrange paragraph:\na. In contrast, critics worry that automation could lead to widespread job displacement...\nb. Artificial Intelligence (AI) is rapidly transforming various sectors...\nc. On the positive side, AI can analyze vast amounts of data quickly...\nd. Ultimately, striking a balance between technological innovation and ethical regulation...\ne. Because of these conflicting views, public debates regarding the regulation...", options: ["b - c - a - e – d", "b - a - c - e – d", "c - a - b - e – d", "b - c - a - d – e"], correctIndex: 0, explanation: "Thứ tự: (b) Giới thiệu AI -> (c) Mặt tích cực -> (a) Mặt lo ngại -> (e) Tranh luận công khai -> (d) Kết luận cân bằng." },
+
+            // VIII. LOOKING BACK
+            { id: "u3_lb_1", unit: "Unit 3", section: "Looking Back", question: "Question 1. Have you thought ______ studying abroad after you graduate from high school?", options: ["about", "on", "in", "for"], correctIndex: 0, explanation: "think about: suy nghĩ về." },
+            { id: "u3_lb_2", unit: "Unit 3", section: "Looking Back", question: "Question 2. The little boy asked ______ a glass of water because he was very thirsty.", options: ["on", "about", "for", "with"], correctIndex: 2, explanation: "ask for: xin / yêu cầu cái gì." },
+            { id: "u3_lb_3", unit: "Unit 3", section: "Looking Back", question: "Question 3. Success often depends ______ how hard you are willing to work.", options: ["in", "at", "on", "of"], correctIndex: 2, explanation: "depend on: tùy thuộc vào." },
+            { id: "u3_lb_4", unit: "Unit 3", section: "Looking Back", question: "Question 4. Tom forgot his homework, ______ made his teacher very disappointed.", options: ["who", "whom", "which", "where"], correctIndex: 2, explanation: "which thay thế cho cả mệnh đề đứng trước." },
+            { id: "u3_lb_5", unit: "Unit 3", section: "Looking Back", question: "Question 5. The company reduced plastic waste, ______ helped improve its public image.", options: ["whose", "which", "who", "where"], correctIndex: 1, explanation: "which đứng sau dấu phẩy thay cho mệnh đề trước." },
+            { id: "u3_lb_6", unit: "Unit 3", section: "Looking Back", question: "Question 6. He apologised to his teacher __________ being late for class.", options: ["on", "for", "in", "with"], correctIndex: 1, explanation: "apologise for + V-ing: xin lỗi vì đã làm gì." },
+            { id: "u3_lb_7", unit: "Unit 3", section: "Looking Back", question: "Question 7. The children cleaned up the beach, ______ was praised by local residents.", options: ["where", "who", "which", "whose"], correctIndex: 2, explanation: "which thay cho cả sự việc dọn dẹp bãi biển." },
+            { id: "u3_lb_8", unit: "Unit 3", section: "Looking Back", question: "Question 8. Peter forgot his friend's birthday, ______ was quite embarrassing.", options: ["who", "whose", "which", "whom"], correctIndex: 2, explanation: "which thay cho cả việc quên sinh nhật." },
+
+            // REVIEW UNIT 3 - PASSAGES
+            {
+                id: "u3_pass1_q1", unit: "Unit 3", section: "Passage Completion",
+                passageId: "u3_pass_bullying",
+                passageTitle: "Review Unit 3 - Passage 1: Bullying & Cyberbullying",
+                passageText: `Occurring in most schools worldwide, (1) _____. Targeting weaker classmates, (2) _____. If left unaddressed, this issue can lead to anxiety, depression, and low self-esteem among victims. Recognizing its severity, (3) _____to create a safer learning environment.
+Meanwhile, expanding beyond classrooms, (4) _____. Hidden behind screens, (5) _____. Experts are urging stronger regulations and emphasising the importance of digital literacy and parental guidance to protect young internet users from harm.`,
+                question: "Question 1. Choose the option for blank (1):",
+                options: [
+                    "students' mental health and academic performance are threatened by bullying",
+                    "negatively impacting students' mental health and academic performance is bullying",
+                    "bullying negatively impacts students' mental health and academic performance",
+                    "students who are bullied have worse mental health and academic performance"
+                ],
+                correctIndex: 2, explanation: "Đồng chủ ngữ với 'Occurring in most schools...': 'bullying negatively impacts...'."
+            },
+            {
+                id: "u3_pass1_q2", unit: "Unit 3", section: "Passage Completion",
+                passageId: "u3_pass_bullying",
+                passageText: `Occurring in most schools worldwide...`,
+                question: "Question 2. Choose the option for blank (2):",
+                options: [
+                    "verbal insults or physical violence are used to assert dominance",
+                    "the use of verbal insults or physical violence to assert dominance",
+                    "students are afraid of verbal insults or physical violence at school",
+                    "bullies use verbal insults or physical violence to assert dominance"
+                ],
+                correctIndex: 3, explanation: "Đồng chủ ngữ với 'Targeting weaker classmates...': 'bullies use verbal insults...'"
+            },
+            {
+                id: "u3_pass1_q3", unit: "Unit 3", section: "Passage Completion",
+                passageId: "u3_pass_bullying",
+                passageText: `Occurring in most schools worldwide...`,
+                question: "Question 3. Choose the option for blank (3):",
+                options: [
+                    "many strict policies have been implemented by schools",
+                    "the implementation of strict policies at schools",
+                    "many schools have implemented strict policies",
+                    "there have been many strict policies implemented"
+                ],
+                correctIndex: 2, explanation: "Đồng chủ ngữ với 'Recognizing its severity...': 'many schools have implemented...'"
+            },
+            {
+                id: "u3_pass1_q4", unit: "Unit 3", section: "Passage Completion",
+                passageId: "u3_pass_bullying",
+                passageText: `Occurring in most schools worldwide...`,
+                question: "Question 4. Choose the option for blank (4):",
+                options: [
+                    "cyberbullying has become a growing concern in the digital age",
+                    "a growing concern about cyberbullying in the digital age",
+                    "the digital age sees a growing concern about cyberbullying",
+                    "people are increasingly concerned about cyberbullying in the digital age"
+                ],
+                correctIndex: 0, explanation: "Đồng chủ ngữ với 'Meanwhile, expanding beyond classrooms...': 'cyberbullying has become...'"
+            },
+            {
+                id: "u3_pass1_q5", unit: "Unit 3", section: "Passage Completion",
+                passageId: "u3_pass_bullying",
+                passageText: `Occurring in most schools worldwide...`,
+                question: "Question 5. Choose the option for blank (5):",
+                options: [
+                    "bullies harass their victims through messages, comments or social media posts",
+                    "social media platforms are where victims are harassed through messages and comments",
+                    "messages, comments or social media posts are common ways to criticise people",
+                    "victims are harassed through messages, comments or social media posts online"
+                ],
+                correctIndex: 0, explanation: "Đồng chủ ngữ với 'Hidden behind screens...': 'bullies harass their victims...'"
+            },
+
+            {
+                id: "u3_pass2_q1", unit: "Unit 3", section: "Passage Completion",
+                passageId: "u3_pass_postschool",
+                passageTitle: "Review Unit 3 - Passage 2: Exploring Paths After School",
+                passageText: `Finishing high school is a big step (1) __________. There are various paths to choose from after leaving school, and each one offers unique opportunities.
+Some students decide to continue (2) __________ at universities. Universities have many subjects to learn like science, art, or business. They offer degrees that can lead to exciting careers. This option allows students to dive deeper into subjects they are passionate about.
+For others, vocational training is a great choice. Vocational training focuses on specific skills that are important in jobs like mechanics, cooking, or healthcare. It gives practical knowledge and (3) ___________.
+Another option is (4) __________. These colleges offer courses that are practical and also give the chance to move to bigger universities later. They are a good starting point for many students.
+Apprenticeships are great for those who like to learn while working. This option gives hands-on experience in fields such as engineering, culinary arts, or information technology. It not only facilitates the acquisition of comprehensive knowledge and advanced skills, but also enables individuals to gain valuable experience and (5) _________.
+In recent times, online courses have become very popular. These courses offer flexibility (6) __________. They cover a wide range of subjects and give access to education no matter where someone lives.
+In conclusion, there are many paths available after finishing school. Each path has its advantages and can lead to a bright future. It is important for school leavers to explore these options and choose the one that suits them best.`,
+                question: "Question 1. Choose option for blank (1):",
+                options: ["that open many doors for young people", "opening many doors for young people", "what opens many doors for young people", "opens many doors for young people"],
+                correctIndex: 1, explanation: "Mệnh đề quan hệ rút gọn dạng chủ động (opening many doors...)."
+            },
+            {
+                id: "u3_pass2_q2", unit: "Unit 3", section: "Passage Completion",
+                passageId: "u3_pass_postschool",
+                passageText: `Finishing high school is a big step...`,
+                question: "Question 2. Choose option for blank (2):",
+                options: ["its studies", "this studies", "their studies", "his studies"],
+                correctIndex: 2, explanation: "continue their studies (chủ ngữ số nhiều Some students)."
+            },
+            {
+                id: "u3_pass2_q3", unit: "Unit 3", section: "Passage Completion",
+                passageId: "u3_pass_postschool",
+                passageText: `Finishing high school is a big step...`,
+                question: "Question 3. Choose option for blank (3):",
+                options: ["preparation students to swiftly enter the job market", "preparing students for immediate employment", "promptly prepare students for the workforce", "prepares students for work right away"],
+                correctIndex: 3, explanation: "Cấu trúc song song: 'It gives practical knowledge and prepares students...'"
+            },
+            {
+                id: "u3_pass2_q4", unit: "Unit 3", section: "Passage Completion",
+                passageId: "u3_pass_postschool",
+                passageText: `Finishing high school is a big step...`,
+                question: "Question 4. Choose option for blank (4):",
+                options: ["enrolls in community college", "enrolling in community college", "enrolled in community college", "have enrolled in community college"],
+                correctIndex: 1, explanation: "Danh động từ 'enrolling in community college' làm bổ ngữ."
+            },
+            {
+                id: "u3_pass2_q5", unit: "Unit 3", section: "Passage Completion",
+                passageId: "u3_pass_postschool",
+                passageText: `Finishing high school is a big step...`,
+                question: "Question 5. Choose option for blank (5):",
+                options: ["a sustainable income simultaneously", "a simultaneously sustainable income", "a sustainable income simultaneous", "an income sustainable simultaneously"],
+                correctIndex: 0, explanation: "gain valuable experience and a sustainable income simultaneously."
+            },
+            {
+                id: "u3_pass2_q6", unit: "Unit 3", section: "Passage Completion",
+                passageId: "u3_pass_postschool",
+                passageText: `Finishing high school is a big step...`,
+                question: "Question 6. Choose option for blank (6):",
+                options: ["as students can study from home", "though students can study from home", "because of students can study from home", "if students can study from home"],
+                correctIndex: 0, explanation: "as + clause: vì / bởi vì."
+            },
+
+            {
+                id: "u3_pass3_q1", unit: "Unit 3", section: "Passage Completion",
+                passageId: "u3_pass_independent",
+                passageTitle: "Review Unit 3 - Passage 3: Independent Living",
+                passageText: `Living independently teaches young adults to make decisions and take responsibility for their lives. Managing finances wisely, (1) _____. Forced to solve daily challenges alone, (2) _____. Without relying on family, they gain confidence in handling personal and professional matters. Shaping their own routines, (3) _____. Facing both freedom and challenges, (4) _____.`,
+                question: "Question 1. Choose option for blank (1):",
+                options: [
+                    "development of budgeting skills and understanding of the value of money",
+                    "budgeting is an important skill to understand the value of money",
+                    "budgeting skills are developed, helping them understand the value of money",
+                    "they develop budgeting skills and understand the value of money"
+                ],
+                correctIndex: 3, explanation: "Đồng chủ ngữ với 'Managing finances wisely...': 'they develop budgeting skills...'."
+            },
+            {
+                id: "u3_pass3_q2", unit: "Unit 3", section: "Passage Completion",
+                passageId: "u3_pass_independent",
+                passageText: `Living independently teaches young adults...`,
+                question: "Question 2. Choose option for blank (2):",
+                options: [
+                    "resilience and resourcefulness are the results of this",
+                    "it helps them become more resilient and resourceful",
+                    "valuable traits such as resilience and resourcefulness",
+                    "they also become more resilient and resourceful"
+                ],
+                correctIndex: 3, explanation: "Đồng chủ ngữ với 'Forced to solve daily challenges alone...': 'they also become...'"
+            },
+            {
+                id: "u3_pass3_q3", unit: "Unit 3", section: "Passage Completion",
+                passageId: "u3_pass_independent",
+                passageText: `Living independently teaches young adults...`,
+                question: "Question 3. Choose option for blank (3):",
+                options: [
+                    "they also build discipline and self-motivation",
+                    "discipline and self-motivation are built along the way",
+                    "the development of discipline and self-motivation",
+                    "their attitudes decide discipline and self-motivation"
+                ],
+                correctIndex: 0, explanation: "Đồng chủ ngữ với 'Shaping their own routines...': 'they also build...'"
+            },
+            {
+                id: "u3_pass3_q4", unit: "Unit 3", section: "Passage Completion",
+                passageId: "u3_pass_independent",
+                passageText: `Living independently teaches young adults...`,
+                question: "Question 4. Choose option for blank (4):",
+                options: [
+                    "individuals living independently will grow into mature, capable adults",
+                    "independent living will help people grow into mature, capable adults",
+                    "growing into mature and capable adults is the ultimate benefit of independent living",
+                    "independence learnt through life make one a mature and capable adult"
+                ],
+                correctIndex: 0, explanation: "Đồng chủ ngữ với 'Facing both freedom and challenges...': 'individuals living independently...'"
+            }
+        ];
+
+        /**
+         * STATE MANAGEMENT
+         */
+        let state = {
+            questions: [],
+            currentTab: 'practice',
+            practice: {
+                filteredList: [],
+                userAnswers: {}
+            },
+            exam: {
+                questions: [],
+                userAnswers: {},
+                flagged: {},
+                timerInterval: null,
+                timeRemaining: 0,
+                totalTimeLimit: 0,
+                isSubmitted: false
+            },
+            history: []
+        };
+
+        window.onload = function () {
+            loadQuestions();
+            loadHistory();
+            initPracticeSession();
+        };
+
+        function loadQuestions() {
+            const saved = localStorage.getItem('engquiz_k12_questions');
+            if (saved) {
+                try {
+                    state.questions = JSON.parse(saved);
+                } catch (e) {
+                    state.questions = [...RAW_K12_QUESTIONS];
+                }
+            } else {
+                state.questions = [...RAW_K12_QUESTIONS];
+                saveQuestions();
+            }
+            updateQuickStats();
+        }
+
+        function saveQuestions() {
+            localStorage.setItem('engquiz_k12_questions', JSON.stringify(state.questions));
+            updateQuickStats();
+        }
+
+        function loadHistory() {
+            const saved = localStorage.getItem('engquiz_k12_history');
+            if (saved) {
+                try { state.history = JSON.parse(saved); } catch (e) { state.history = []; }
+            }
+        }
+
+        function saveHistory() {
+            localStorage.setItem('engquiz_k12_history', JSON.stringify(state.history));
+        }
+
+        function updateQuickStats() {
+            document.getElementById('quick-q-count').innerHTML = `<i class="fa-solid fa-book-bookmark text-teal-400 mr-1"></i> ${state.questions.length} Câu hỏi`;
+            document.getElementById('stat-total-q').innerText = state.questions.length;
+        }
+
+        function switchTab(tabName) {
+            state.currentTab = tabName;
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(`tab-${tabName}`)?.classList.remove('hidden');
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('bg-indigo-800', 'text-white', 'shadow-inner');
+                btn.classList.add('hover:bg-indigo-800/60', 'text-indigo-100');
+            });
+
+            const activeNav = document.getElementById(`nav-${tabName}`);
+            if (activeNav) {
+                activeNav.classList.add('bg-indigo-800', 'text-white', 'shadow-inner');
+                activeNav.classList.remove('hover:bg-indigo-800/60', 'text-indigo-100');
+            }
+
+            if (tabName === 'manage') renderManageTable();
+            if (tabName === 'analytics') renderAnalytics();
+            if (tabName === 'practice') initPracticeSession();
+        }
+
+        function shuffleArray(array) {
+            const arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        /**
+         * PASSAGE INTEGRITY QUEUE BUILDER
+         */
+        function buildProcessedQueue(sourceList, shuffleQs, shuffleOpts) {
+            const blocks = [];
+            const passageMap = new Map();
+
+            sourceList.forEach(q => {
+                if (q.passageId || q.passageText) {
+                    const pid = q.passageId || q.passageText.substring(0, 30);
+                    if (!passageMap.has(pid)) {
+                        const block = { type: 'passage', pid: pid, passageText: q.passageText, passageTitle: q.passageTitle, questions: [] };
+                        passageMap.set(pid, block);
+                        blocks.push(block);
+                    }
+                    // Gắn chung ID và Text chuẩn của câu đầu tiên cho toàn bộ câu trong nhóm
+                    // Giúp UI gom đủ câu dù text các câu sau có bị viết tắt
+                    q.renderPid = pid;
+                    q.renderPassageText = passageMap.get(pid).passageText;
+                    passageMap.get(pid).questions.push(q);
+                } else {
+                    blocks.push({ type: 'single', questions: [q] });
+                }
+            });
+
+            let processedBlocks = shuffleQs ? shuffleArray(blocks) : blocks;
+            const resultList = [];
+
+            processedBlocks.forEach(block => {
+                // QUAN TRỌNG: Tuyệt đối KHÔNG trộn (shuffle) thứ tự các câu hỏi bên trong block bài đọc.
+                // Các câu hỏi trong bài đọc phải luôn giữ nguyên thứ tự (Question 1, Question 2,...)
+                let qList = [...block.questions];
+
+                qList.forEach(rawQ => {
+                    let displayOptions = rawQ.options.map((opt, idx) => ({ text: opt, originalIndex: idx }));
+                    let correctDisplayIdx = rawQ.correctIndex;
+
+                    if (shuffleOpts) {
+                        displayOptions = shuffleArray(displayOptions);
+                        correctDisplayIdx = displayOptions.findIndex(o => o.originalIndex === rawQ.correctIndex);
+                    }
+
+                    resultList.push({
+                        ...rawQ,
+                        displayOptions,
+                        correctDisplayIdx
+                    });
+                });
+            });
+
+            return resultList;
+        }
+
+        /**
+         * TAB 1: PRACTICE MODE LOGIC
+         */
+        function initPracticeSession() {
+            const unitVal = document.getElementById('practice-unit-filter')?.value || 'ALL';
+            const secVal = document.getElementById('practice-section-filter')?.value || 'ALL';
+            const shuffleQs = document.getElementById('practice-shuffle-q')?.checked ?? true;
+            const shuffleOpts = document.getElementById('practice-shuffle-o')?.checked ?? true;
+
+            let filtered = state.questions.filter(q => {
+                const matchUnit = (unitVal === 'ALL' || q.unit === unitVal);
+                const matchSec = (secVal === 'ALL' || q.section === secVal);
+                return matchUnit && matchSec;
+            });
+
+            state.practice.userAnswers = {};
+            state.practice.filteredList = buildProcessedQueue(filtered, shuffleQs, shuffleOpts);
+            renderPracticeView();
+        }
+
+        function renderPracticeView() {
+            const container = document.getElementById('practice-container');
+            if (!container) return;
+
+            if (state.practice.filteredList.length === 0) {
+                container.innerHTML = `
+                    <div class="bg-white rounded-2xl p-10 text-center border border-slate-200">
+                        <i class="fa-solid fa-folder-open text-4xl text-slate-300 mb-2"></i>
+                        <h3 class="text-base font-bold text-slate-700">Không có câu hỏi phù hợp với bộ lọc</h3>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = '';
+            let i = 0;
+
+            while (i < state.practice.filteredList.length) {
+                const q = state.practice.filteredList[i];
+
+                if (q.renderPid || q.passageText) {
+                    const passageQs = [];
+                    const currentPid = q.renderPid || q.passageText.substring(0, 30);
+                    const pText = q.renderPassageText || q.passageText;
+                    const pTitle = q.passageTitle || 'Văn Bản Bài Đọc Hiểu';
+
+                    // Dùng currentPid để kiểm tra, đảm bảo gom chính xác đủ n câu liên kết
+                    while (i < state.practice.filteredList.length &&
+                        (state.practice.filteredList[i].renderPid || state.practice.filteredList[i].passageText?.substring(0, 30)) === currentPid) {
+                        passageQs.push({ qObj: state.practice.filteredList[i], globalIdx: i });
+                        i++;
+                    }
+
+                    html += `
+                        <div class="bg-white rounded-2xl shadow-sm border border-slate-200/80 overflow-hidden">
+                            <div class="bg-indigo-900 text-white p-4 flex items-center justify-between">
+                                <span class="font-bold text-sm flex items-center gap-2">
+                                    <i class="fa-solid fa-book-open text-teal-400"></i>
+                                    ${pTitle} (${q.unit || 'Tổng hợp'})
+                                </span>
+                                <span class="text-xs bg-indigo-800 text-indigo-200 font-semibold px-2.5 py-1 rounded-full">${passageQs.length} câu hỏi liên kết</span>
+                            </div>
+
+                            <div class="grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-slate-200">
+                                <div class="lg:col-span-6 p-5 bg-slate-50/70 overflow-y-auto reading-scroll">
+                                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Nội dung bài đọc</h4>
+                                    <div class="prose prose-sm text-slate-800 leading-relaxed font-serif whitespace-pre-line text-sm sm:text-base">
+                                        ${pText}
+                                    </div>
+                                </div>
+                                <div class="lg:col-span-6 p-5 space-y-6 overflow-y-auto reading-scroll">
+                                    ${passageQs.map(item => renderSinglePracticeCard(item.qObj, item.globalIdx)).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    html += `
+                        <div class="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-5 space-y-4">
+                            ${renderSinglePracticeCard(q, i)}
+                        </div>
+                    `;
+                    i++;
+                }
+            }
+
+            container.innerHTML = html;
+        }
+
+        function renderSinglePracticeCard(q, idx) {
+            const userAnswer = state.practice.userAnswers[q.id];
+            const isAnswered = userAnswer !== undefined;
+
+            return `
+                <div class="space-y-3" id="prac-card-${q.id}">
+                    <div class="flex items-center space-x-2">
+                        <span class="w-7 h-7 rounded-lg bg-indigo-100 text-indigo-800 font-bold text-xs flex items-center justify-center shrink-0">
+                            ${idx + 1}
+                        </span>
+                        <span class="text-xs font-semibold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-md">
+                            ${q.unit || ''} • ${q.section}
+                        </span>
+                    </div>
+
+                    <p class="font-semibold text-slate-800 text-base leading-snug whitespace-pre-line">${q.question}</p>
+
+                    <div class="grid grid-cols-1 gap-2 pt-1">
+                        ${q.displayOptions.map((opt, optIdx) => {
+                const labels = ['A', 'B', 'C', 'D'];
+                let btnStyle = "border-slate-200 hover:border-indigo-400 hover:bg-slate-50 text-slate-700";
+                let icon = `<span class="w-6 h-6 rounded-md bg-slate-100 text-slate-600 font-bold text-xs flex items-center justify-center mr-3 group-hover:bg-indigo-600 group-hover:text-white transition">${labels[optIdx]}</span>`;
+
+                if (isAnswered) {
+                    if (optIdx === q.correctDisplayIdx) {
+                        btnStyle = "border-emerald-500 bg-emerald-50 text-emerald-900 font-medium ring-1 ring-emerald-500";
+                        icon = `<span class="w-6 h-6 rounded-md bg-emerald-600 text-white font-bold text-xs flex items-center justify-center mr-3"><i class="fa-solid fa-check"></i></span>`;
+                    } else if (userAnswer === optIdx) {
+                        btnStyle = "border-rose-500 bg-rose-50 text-rose-900 font-medium ring-1 ring-rose-500";
+                        icon = `<span class="w-6 h-6 rounded-md bg-rose-600 text-white font-bold text-xs flex items-center justify-center mr-3"><i class="fa-solid fa-xmark"></i></span>`;
+                    } else {
+                        btnStyle = "border-slate-200 opacity-60 text-slate-500";
+                    }
+                }
+
+                return `
+                                <button onclick="selectPracticeAnswer('${q.id}', ${optIdx})" ${isAnswered ? 'disabled' : ''} class="w-full text-left p-3 rounded-xl border text-sm transition flex items-center group ${btnStyle}">
+                                    ${icon}
+                                    <span class="leading-relaxed">${opt.text}</span>
+                                </button>
+                            `;
+            }).join('')}
+                    </div>
+
+                    ${isAnswered ? `
+                        <div class="mt-3 p-4 rounded-xl ${userAnswer === q.correctDisplayIdx ? 'bg-emerald-50/90 border border-emerald-200 text-emerald-900' : 'bg-rose-50/90 border border-rose-200 text-rose-900'} space-y-1 text-xs">
+                            <div class="font-bold flex items-center gap-1.5 text-sm">
+                                <i class="${userAnswer === q.correctDisplayIdx ? 'fa-solid fa-circle-check text-emerald-600' : 'fa-solid fa-triangle-exclamation text-rose-600'}"></i>
+                                <span>${userAnswer === q.correctDisplayIdx ? 'Chính xác!' : 'Chưa đúng! Đáp án đúng là: ' + ['A', 'B', 'C', 'D'][q.correctDisplayIdx]}</span>
+                            </div>
+                            ${q.explanation ? `<p class="text-slate-700 pt-1.5 font-sans border-t border-slate-200/60 mt-1"><strong>Kiến thức & Giải thích:</strong> ${q.explanation}</p>` : ''}
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+        }
+
+        function selectPracticeAnswer(qId, selectedIdx) {
+            state.practice.userAnswers[qId] = selectedIdx;
+
+            // Targeted DOM Update để ngăn chặn giật màn hình (scroll jumping)
+            const qIndex = state.practice.filteredList.findIndex(q => q.id === qId);
+            if (qIndex !== -1) {
+                const qObj = state.practice.filteredList[qIndex];
+                const cardEl = document.getElementById(`prac-card-${qId}`);
+                if (cardEl) {
+                    cardEl.outerHTML = renderSinglePracticeCard(qObj, qIndex);
+                }
+            }
+        }
+
+        /**
+         * TAB 2: EXAM MODE LOGIC
+         */
+        function startExam() {
+            const unitVal = document.getElementById('exam-unit-select').value;
+            const secVal = document.getElementById('exam-section-select').value;
+            const timeVal = parseInt(document.getElementById('exam-timer-select').value);
+            const shuffleQs = document.getElementById('exam-shuffle-q').checked;
+            const shuffleOpts = document.getElementById('exam-shuffle-o').checked;
+
+            let filtered = state.questions.filter(q => {
+                const matchUnit = (unitVal === 'ALL' || q.unit === unitVal);
+                const matchSec = (secVal === 'ALL' || q.section === secVal);
+                return matchUnit && matchSec;
+            });
+
+            if (filtered.length === 0) {
+                showToast('Không có câu hỏi nào trong bộ lọc đã chọn!', 'warning');
+                return;
+            }
+
+            state.exam.questions = buildProcessedQueue(filtered, shuffleQs, shuffleOpts);
+            state.exam.userAnswers = {};
+            state.exam.flagged = {};
+            state.exam.isSubmitted = false;
+            state.exam.totalTimeLimit = timeVal * 60;
+            state.exam.timeRemaining = timeVal * 60;
+
+            document.getElementById('exam-setup-card').classList.add('hidden');
+            document.getElementById('exam-result-card').classList.add('hidden');
+            document.getElementById('exam-active-card').classList.remove('hidden');
+
+            renderExamQuestions();
+            renderExamMatrix();
+
+            if (state.exam.timerInterval) clearInterval(state.exam.timerInterval);
+            if (timeVal > 0) {
+                document.getElementById('exam-timer-badge').classList.remove('hidden');
+                updateTimerDisplay();
+                state.exam.timerInterval = setInterval(() => {
+                    state.exam.timeRemaining--;
+                    updateTimerDisplay();
+                    if (state.exam.timeRemaining <= 0) {
+                        clearInterval(state.exam.timerInterval);
+                        showToast('Đã hết thời gian làm bài!', 'info');
+                        submitExam();
+                    }
+                }, 1000);
+            } else {
+                document.getElementById('exam-timer-badge').classList.add('hidden');
+            }
+        }
+
+        function updateTimerDisplay() {
+            const m = Math.floor(state.exam.timeRemaining / 60);
+            const s = state.exam.timeRemaining % 60;
+            document.getElementById('exam-timer-display').innerText = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+        }
+
+        function renderExamQuestions() {
+            const container = document.getElementById('exam-questions-container');
+            if (!container) return;
+
+            let html = '';
+            let i = 0;
+
+            while (i < state.exam.questions.length) {
+                const q = state.exam.questions[i];
+
+                if (q.renderPid || q.passageText) {
+                    const passageQs = [];
+                    const currentPid = q.renderPid || q.passageText.substring(0, 30);
+                    const pText = q.renderPassageText || q.passageText;
+                    const pTitle = q.passageTitle || 'Văn Bản Bài Đọc Hiểu';
+
+                    while (i < state.exam.questions.length &&
+                        (state.exam.questions[i].renderPid || state.exam.questions[i].passageText?.substring(0, 30)) === currentPid) {
+                        passageQs.push({ qObj: state.exam.questions[i], globalIdx: i });
+                        i++;
+                    }
+
+                    html += `
+                        <div class="bg-white rounded-2xl shadow-sm border border-slate-200/80 overflow-hidden">
+                            <div class="bg-indigo-900 text-white p-4 font-bold text-sm flex items-center justify-between">
+                                <span><i class="fa-solid fa-book-open text-teal-400 mr-2"></i> ${pTitle}</span>
+                                <span class="text-xs bg-indigo-800 text-indigo-200 px-2.5 py-0.5 rounded-full font-medium">${passageQs.length} câu hỏi liên kết</span>
+                            </div>
+
+                            <div class="grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-slate-200">
+                                <div class="lg:col-span-6 p-5 bg-slate-50/80 overflow-y-auto reading-scroll">
+                                    <div class="prose prose-sm text-slate-800 font-serif leading-relaxed whitespace-pre-line text-sm sm:text-base">
+                                        ${pText}
+                                    </div>
+                                </div>
+                                <div class="lg:col-span-6 p-5 space-y-6 overflow-y-auto reading-scroll">
+                                    ${passageQs.map(item => renderSingleExamCard(item.qObj, item.globalIdx)).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    html += `
+                        <div class="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-5">
+                            ${renderSingleExamCard(q, i)}
+                        </div>
+                    `;
+                    i++;
+                }
+            }
+
+            container.innerHTML = html;
+            updateExamAnsweredCount();
+        }
+
+        function renderSingleExamCard(q, idx) {
+            const selectedOpt = state.exam.userAnswers[q.id];
+            const isFlagged = state.exam.flagged[q.id];
+
+            return `
+                <div class="space-y-3" id="exam-card-anchor-${idx}">
+                    <div class="flex items-center justify-between">
+                        <span class="w-7 h-7 rounded-lg bg-indigo-600 text-white font-bold text-xs flex items-center justify-center">
+                            ${idx + 1}
+                        </span>
+                        <button onclick="toggleFlag('${q.id}')" class="px-2.5 py-1 rounded-lg text-xs font-semibold flex items-center space-x-1 ${isFlagged ? 'bg-amber-100 text-amber-700 border border-amber-300' : 'bg-slate-100 text-slate-500 hover:bg-slate-200'}">
+                            <i class="fa-solid fa-bookmark"></i>
+                            <span>${isFlagged ? 'Đã Gắn Cờ' : 'Gắn Cờ'}</span>
+                        </button>
+                    </div>
+
+                    <p class="font-semibold text-slate-800 text-base leading-snug whitespace-pre-line">${q.question}</p>
+
+                    <div class="grid grid-cols-1 gap-2 pt-1">
+                        ${q.displayOptions.map((opt, optIdx) => {
+                const labels = ['A', 'B', 'C', 'D'];
+                const isSelected = selectedOpt === optIdx;
+                let btnStyle = isSelected
+                    ? "border-indigo-600 bg-indigo-50 text-indigo-900 font-semibold ring-2 ring-indigo-500"
+                    : "border-slate-200 hover:bg-slate-50 text-slate-700";
+
+                return `
+                                <button onclick="selectExamAnswer('${q.id}', ${optIdx})" class="w-full text-left p-3 rounded-xl border text-sm transition flex items-center group ${btnStyle}">
+                                    <span class="w-6 h-6 rounded-md ${isSelected ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-600 group-hover:bg-indigo-600 group-hover:text-white'} font-bold text-xs flex items-center justify-center mr-3 transition">
+                                        ${labels[optIdx]}
+                                    </span>
+                                    <span class="leading-relaxed">${opt.text}</span>
+                                </button>
+                            `;
+            }).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function selectExamAnswer(qId, optIdx) {
+            state.exam.userAnswers[qId] = optIdx;
+
+            // Targeted DOM Update
+            const qIndex = state.exam.questions.findIndex(q => q.id === qId);
+            if (qIndex !== -1) {
+                const qObj = state.exam.questions[qIndex];
+                const cardEl = document.getElementById(`exam-card-anchor-${qIndex}`);
+                if (cardEl) {
+                    cardEl.outerHTML = renderSingleExamCard(qObj, qIndex);
+                }
+            }
+            renderExamMatrix();
+        }
+
+        function toggleFlag(qId) {
+            state.exam.flagged[qId] = !state.exam.flagged[qId];
+
+            // Targeted DOM Update
+            const qIndex = state.exam.questions.findIndex(q => q.id === qId);
+            if (qIndex !== -1) {
+                const qObj = state.exam.questions[qIndex];
+                const cardEl = document.getElementById(`exam-card-anchor-${qIndex}`);
+                if (cardEl) {
+                    cardEl.outerHTML = renderSingleExamCard(qObj, qIndex);
+                }
+            }
+            renderExamMatrix();
+        }
+
+        function renderExamMatrix() {
+            const grid = document.getElementById('exam-matrix-grid');
+            if (!grid) return;
+
+            grid.innerHTML = state.exam.questions.map((q, idx) => {
+                const isAnswered = state.exam.userAnswers[q.id] !== undefined;
+                const isFlagged = state.exam.flagged[q.id];
+
+                let btnClass = "bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200";
+                if (isAnswered) btnClass = "bg-indigo-600 text-white border-indigo-600 font-bold";
+                if (isFlagged) btnClass += " ring-2 ring-amber-400 border-amber-400";
+
+                return `
+                    <button onclick="scrollToQuestion(${idx})" class="h-9 w-full rounded-lg text-xs font-semibold border flex items-center justify-center relative transition ${btnClass}">
+                        ${idx + 1}
+                        ${isFlagged ? '<span class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-amber-400 rounded-full"></span>' : ''}
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function scrollToQuestion(idx) {
+            const el = document.getElementById(`exam-card-anchor-${idx}`);
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function updateExamAnsweredCount() {
+            const answeredCount = Object.keys(state.exam.userAnswers).length;
+            const total = state.exam.questions.length;
+            document.getElementById('exam-answered-count').innerText = `${answeredCount}/${total}`;
+            document.getElementById('exam-progress-text').innerText = `Đã làm ${answeredCount}/${total} câu`;
+        }
+
+        function confirmSubmitExam() {
+            const answeredCount = Object.keys(state.exam.userAnswers).length;
+            const total = state.exam.questions.length;
+
+            if (answeredCount < total) {
+                if (!confirm(`Bạn còn ${total - answeredCount} câu chưa hoàn thành. Bạn có chắc chắn muốn nộp bài ngay?`)) return;
+            }
+            submitExam();
+        }
+
+        function submitExam() {
+            if (state.exam.timerInterval) clearInterval(state.exam.timerInterval);
+            state.exam.isSubmitted = true;
+
+            let correctCount = 0;
+            state.exam.questions.forEach(q => {
+                const uAns = state.exam.userAnswers[q.id];
+                if (uAns !== undefined && uAns === q.correctDisplayIdx) correctCount++;
+            });
+
+            const totalQs = state.exam.questions.length;
+            const score10 = (correctCount / totalQs) * 10;
+            const accuracy = Math.round((correctCount / totalQs) * 100);
+            const timeSpentSec = state.exam.totalTimeLimit > 0 ? (state.exam.totalTimeLimit - state.exam.timeRemaining) : 0;
+            const m = Math.floor(timeSpentSec / 60);
+            const s = timeSpentSec % 60;
+            const timeFormatted = `${m}p ${s}s`;
+
+            state.history.unshift({
+                date: new Date().toLocaleString('vi-VN'),
+                score: score10.toFixed(1),
+                accuracy: accuracy + '%',
+                correctStr: `${correctCount}/${totalQs}`,
+                timeSpent: timeFormatted
+            });
+            saveHistory();
+
+            document.getElementById('exam-active-card').classList.add('hidden');
+            document.getElementById('exam-result-card').classList.remove('hidden');
+
+            document.getElementById('res-score').innerText = score10.toFixed(1);
+            document.getElementById('res-accuracy').innerText = accuracy + '%';
+            document.getElementById('res-correct').innerText = `${correctCount}/${totalQs}`;
+            document.getElementById('res-time').innerText = timeFormatted;
+
+            renderExamReview();
+        }
+
+        function renderExamReview() {
+            const container = document.getElementById('exam-review-container');
+            if (!container) return;
+
+            container.innerHTML = state.exam.questions.map((q, idx) => {
+                const uAns = state.exam.userAnswers[q.id];
+                const isCorrect = uAns === q.correctDisplayIdx;
+
+                return `
+                    <div class="bg-slate-50 rounded-2xl p-5 border border-slate-200 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-sm text-slate-700">Câu ${idx + 1} (${q.unit} - ${q.section})</span>
+                            <span class="px-2.5 py-1 rounded-full text-xs font-bold ${isCorrect ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700'}">
+                                ${isCorrect ? 'Đúng (+1)' : 'Sai'}
+                            </span>
+                        </div>
+
+                        ${(q.renderPassageText || q.passageText) && (idx === 0 || state.exam.questions[idx - 1].renderPid !== q.renderPid) ? `<div class="p-3 bg-white rounded-xl border text-xs font-serif text-slate-600 max-h-36 overflow-y-auto">${q.renderPassageText || q.passageText}</div>` : ''}
+
+                        <p class="font-medium text-slate-800 text-sm whitespace-pre-line">${q.question}</p>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                            ${q.displayOptions.map((opt, optIdx) => {
+                    const labels = ['A', 'B', 'C', 'D'];
+                    let cls = "bg-white border-slate-200 text-slate-600";
+                    if (optIdx === q.correctDisplayIdx) cls = "bg-emerald-100 border-emerald-300 text-emerald-900 font-bold";
+                    if (uAns === optIdx && !isCorrect) cls = "bg-rose-100 border-rose-300 text-rose-900 font-bold";
+
+                    return `
+                                    <div class="p-2.5 rounded-lg border flex items-center ${cls}">
+                                        <span class="font-bold mr-2">${labels[optIdx]}.</span>
+                                        <span>${opt.text}</span>
+                                    </div>
+                                `;
+                }).join('')}
+                        </div>
+
+                        ${q.explanation ? `<p class="text-xs text-slate-600 pt-2 border-t border-slate-200"><strong>Giải thích:</strong> ${q.explanation}</p>` : ''}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function retakeExam() {
+            document.getElementById('exam-result-card').classList.add('hidden');
+            document.getElementById('exam-setup-card').classList.remove('hidden');
+        }
+
+        /**
+         * TAB 3: MANAGEMENT LOGIC
+         */
+        function renderManageTable() {
+            const tbody = document.getElementById('manage-questions-tbody');
+            const search = document.getElementById('manage-search').value.toLowerCase();
+            const unitVal = document.getElementById('manage-unit-filter').value;
+
+            if (!tbody) return;
+
+            const filtered = state.questions.filter(q => {
+                const matchUnit = (unitVal === 'ALL' || q.unit === unitVal);
+                const matchSearch = q.question.toLowerCase().includes(search) || (q.passageText && q.passageText.toLowerCase().includes(search));
+                return matchUnit && matchSearch;
+            });
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="p-6 text-center text-slate-400">Không tìm thấy câu hỏi nào</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = filtered.map((q, idx) => `
+                <tr class="hover:bg-slate-50 transition">
+                    <td class="p-3 font-semibold text-slate-500 text-xs">${idx + 1}</td>
+                    <td class="p-3 font-bold text-xs text-indigo-600">${q.unit}</td>
+                    <td class="p-3 text-xs text-slate-600 font-medium">${q.section}</td>
+                    <td class="p-3 text-xs max-w-xs truncate font-medium text-slate-800" title="${q.question}">${q.question}</td>
+                    <td class="p-3 text-xs font-bold text-emerald-600">${['A', 'B', 'C', 'D'][q.correctIndex]}</td>
+                    <td class="p-3 text-right space-x-1">
+                        <button onclick="editQuestion('${q.id}')" class="p-1.5 text-slate-600 hover:text-indigo-600 rounded-lg"><i class="fa-solid fa-pen"></i></button>
+                        <button onclick="deleteQuestion('${q.id}')" class="p-1.5 text-slate-600 hover:text-rose-600 rounded-lg"><i class="fa-solid fa-trash"></i></button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function openAddQuestionModal() {
+            document.getElementById('form-question').reset();
+            document.getElementById('form-q-id').value = '';
+            document.getElementById('modal-q-title').innerText = 'Thêm Câu Hỏi Mới';
+            openModal('modal-question');
+        }
+
+        function editQuestion(qId) {
+            const q = state.questions.find(item => item.id === qId);
+            if (!q) return;
+
+            document.getElementById('form-q-id').value = q.id;
+            document.getElementById('form-q-unit').value = q.unit;
+            document.getElementById('form-q-section').value = q.section;
+            document.getElementById('form-q-passage').value = q.passageText || '';
+            document.getElementById('form-q-text').value = q.question;
+            document.getElementById('form-q-opt0').value = q.options[0] || '';
+            document.getElementById('form-q-opt1').value = q.options[1] || '';
+            document.getElementById('form-q-opt2').value = q.options[2] || '';
+            document.getElementById('form-q-opt3').value = q.options[3] || '';
+            document.getElementById('form-q-correct').value = q.correctIndex;
+            document.getElementById('form-q-explanation').value = q.explanation || '';
+
+            document.getElementById('modal-q-title').innerText = 'Chỉnh Sửa Câu Hỏi';
+            openModal('modal-question');
+        }
+
+        function saveQuestionForm(e) {
+            e.preventDefault();
+            const id = document.getElementById('form-q-id').value;
+            const newQ = {
+                id: id || 'q_' + Date.now(),
+                unit: document.getElementById('form-q-unit').value,
+                section: document.getElementById('form-q-section').value,
+                passageText: document.getElementById('form-q-passage').value.trim() || undefined,
+                question: document.getElementById('form-q-text').value.trim(),
+                options: [
+                    document.getElementById('form-q-opt0').value.trim(),
+                    document.getElementById('form-q-opt1').value.trim(),
+                    document.getElementById('form-q-opt2').value.trim(),
+                    document.getElementById('form-q-opt3').value.trim()
+                ],
+                correctIndex: parseInt(document.getElementById('form-q-correct').value),
+                explanation: document.getElementById('form-q-explanation').value.trim()
+            };
+
+            if (id) {
+                const idx = state.questions.findIndex(q => q.id === id);
+                if (idx !== -1) state.questions[idx] = newQ;
+            } else {
+                state.questions.push(newQ);
+            }
+
+            saveQuestions();
+            closeModal('modal-question');
+            renderManageTable();
+            showToast('Lưu câu hỏi thành công!', 'success');
+        }
+
+        function deleteQuestion(qId) {
+            if (confirm('Xóa câu hỏi này khỏi ngân hàng câu hỏi?')) {
+                state.questions = state.questions.filter(q => q.id !== qId);
+                saveQuestions();
+                renderManageTable();
+                showToast('Đã xóa câu hỏi!', 'info');
+            }
+        }
+
+        function openBulkImportModal() {
+            document.getElementById('bulk-import-input').value = '';
+            openModal('modal-bulk');
+        }
+
+        function executeBulkImport() {
+            const input = document.getElementById('bulk-import-input').value.trim();
+            if (!input) { showToast('Vui lòng dán dữ liệu!', 'warning'); return; }
+
+            let importedCount = 0;
+            try {
+                const parsed = JSON.parse(input);
+                if (Array.isArray(parsed)) {
+                    parsed.forEach(q => {
+                        if (q.question && q.options && q.options.length === 4) {
+                            state.questions.push({
+                                id: 'q_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
+                                unit: q.unit || 'Unit 2',
+                                section: q.section || 'Getting Started',
+                                passageText: q.passageText,
+                                question: q.question,
+                                options: q.options,
+                                correctIndex: typeof q.correctIndex === 'number' ? q.correctIndex : 0,
+                                explanation: q.explanation || ''
+                            });
+                            importedCount++;
+                        }
+                    });
+                }
+            } catch (e) {
+                const blocks = input.split(/---|\n\n\n/);
+                blocks.forEach(block => {
+                    const lines = block.split('\n').map(l => l.trim()).filter(Boolean);
+                    let unit = 'Unit 2', section = 'Getting Started', passage = '', question = '', options = [], answer = 0, explanation = '';
+
+                    lines.forEach(line => {
+                        if (line.toUpperCase().startsWith('UNIT:')) unit = line.substring(5).trim();
+                        else if (line.toUpperCase().startsWith('SECTION:')) section = line.substring(8).trim();
+                        else if (line.toUpperCase().startsWith('PASSAGE:')) passage = line.substring(8).trim();
+                        else if (line.toUpperCase().startsWith('QUESTION:')) question = line.substring(9).trim();
+                        else if (line.match(/^[A-D]\./i)) options.push(line.replace(/^[A-D]\./i, '').trim());
+                        else if (line.toUpperCase().startsWith('ANSWER:')) {
+                            const ansChar = line.substring(7).trim().toUpperCase();
+                            answer = ['A', 'B', 'C', 'D'].indexOf(ansChar);
+                            if (answer === -1) answer = 0;
+                        }
+                        else if (line.toUpperCase().startsWith('EXPLANATION:')) explanation = line.substring(12).trim();
+                    });
+
+                    if (question && options.length === 4) {
+                        state.questions.push({
+                            id: 'q_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
+                            unit, section, passageText: passage || undefined, question, options, correctIndex: answer, explanation
+                        });
+                        importedCount++;
+                    }
+                });
+            }
+
+            if (importedCount > 0) {
+                saveQuestions();
+                closeModal('modal-bulk');
+                renderManageTable();
+                showToast(`Đã nhập thành công ${importedCount} câu hỏi mới!`, 'success');
+            } else {
+                showToast('Không đọc được dữ liệu phù hợp. Vui lòng kiểm tra định dạng!', 'error');
+            }
+        }
+
+        function exportQuestionsJSON() {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(state.questions, null, 2));
+            const dlAnchorElem = document.createElement('a');
+            dlAnchorElem.setAttribute("href", dataStr);
+            dlAnchorElem.setAttribute("download", `engquiz_k12_bank_${Date.now()}.json`);
+            document.body.appendChild(dlAnchorElem);
+            dlAnchorElem.click();
+            dlAnchorElem.remove();
+        }
+
+        function resetToDefaultData() {
+            if (confirm('Khôi phục lại toàn bộ ngân hàng câu hỏi gốc từ đề ôn tập Giữa Kỳ I (Unit 2 & Unit 3)?')) {
+                state.questions = [...RAW_K12_QUESTIONS];
+                saveQuestions();
+                renderManageTable();
+                showToast('Đã khôi phục thành công toàn bộ dữ liệu K12!', 'info');
+            }
+        }
+
+        function copySampleJSON() {
+            const sample = JSON.stringify([{
+                unit: "Unit 2", section: "Getting Started",
+                question: "Singapore is a ______ country...",
+                options: ["multiculturalism", "multicultural", "multiculturally", "multiculturalist"],
+                correctIndex: 1, explanation: "multicultural (adj)"
+            }], null, 2);
+            navigator.clipboard.writeText(sample);
+            showToast('Đã chép cấu trúc JSON mẫu vào clipboard!', 'info');
+        }
+
+        /**
+         * TAB 4: ANALYTICS LOGIC
+         */
+        function renderAnalytics() {
+            document.getElementById('stat-total-tests').innerText = state.history.length;
+            if (state.history.length > 0) {
+                const totalScore = state.history.reduce((acc, item) => acc + parseFloat(item.score), 0);
+                document.getElementById('stat-avg-score').innerText = (totalScore / state.history.length).toFixed(1);
+            } else {
+                document.getElementById('stat-avg-score').innerText = '0.0';
+            }
+
+            const tbody = document.getElementById('analytics-history-tbody');
+            if (!tbody) return;
+
+            if (state.history.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="p-6 text-center text-slate-400">Chưa có lịch sử làm đề thi nào</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = state.history.map(item => `
+                <tr class="hover:bg-slate-50 transition">
+                    <td class="p-3 text-xs text-slate-500">${item.date}</td>
+                    <td class="p-3 text-xs font-black text-indigo-600">${item.score}</td>
+                    <td class="p-3 text-xs text-emerald-600 font-bold">${item.accuracy}</td>
+                    <td class="p-3 text-xs text-slate-700 font-medium">${item.correctStr}</td>
+                    <td class="p-3 text-xs text-slate-500">${item.timeSpent}</td>
+                </tr>
+            `).join('');
+        }
+
+        /**
+         * UI UTILS
+         */
+        function openModal(id) { document.getElementById(id)?.classList.remove('hidden'); }
+        function closeModal(id) { document.getElementById(id)?.classList.add('hidden'); }
+
+        function showToast(msg, type = 'info') {
+            const container = document.getElementById('toast-container');
+            if (!container) return;
+
+            const toast = document.createElement('div');
+            let icon = 'fa-info-circle text-blue-400';
+            if (type === 'success') icon = 'fa-check-circle text-emerald-400';
+            if (type === 'warning') icon = 'fa-exclamation-triangle text-amber-400';
+            if (type === 'error') icon = 'fa-times-circle text-rose-400';
+
+            toast.className = `pointer-events-auto flex items-center space-x-2 bg-slate-900 text-white text-xs px-4 py-3 rounded-xl shadow-xl transition-all duration-300 transform translate-y-2 opacity-0`;
+            toast.innerHTML = `<i class="fa-solid ${icon}"></i> <span>${msg}</span>`;
+
+            container.appendChild(toast);
+            setTimeout(() => toast.classList.remove('translate-y-2', 'opacity-0'), 10);
+            setTimeout(() => {
+                toast.classList.add('opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        }
+    </script>
+</body>
+</html>
